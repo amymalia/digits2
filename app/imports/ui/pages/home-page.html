@@ -1,37 +1,32 @@
 <template name="Home_Page">
   <div class="ui container">
+
+    {{#if Template.subscriptionsReady}}
     <table style="margin-top: 20px" class="ui celled table">
       <thead>
-      <tr><th>First</th>
+      <tr>
+        <th>First</th>
         <th>Last</th>
         <th>Address</th>
         <th>Phone</th>
         <th>Email</th>
-      </tr></thead>
-      <tbody>
-      <tr>
-        <td>Amy</td>
-        <td>Dumpling</td>
-        <td>1234 Dumpling Street</td>
-        <td>808-932-1235</td>
-        <td>dumps@email.com</td>
       </tr>
-      <tr>
-        <td>Alan</td>
-        <td>Pineapple</td>
-        <td>5678 Pineapple Lane</td>
-        <td>808-453-2341</td>
-        <td>pines@email.com</td>
-      </tr>
-      <tr>
-        <td>Apple</td>
-        <td>Pine</td>
-        <td>1092 Ling Dump Ave</td>
-        <td>808-943-8432</td>
-        <td>dumplypines@email.com</td>
-      </tr>
+      </thead>
 
+      <tbody>
+      {{#each contact in contactsList}}
+      <tr>
+        <td>{{contact.first}}</td>
+        <td>{{contact.last}}</td>
+        <td>{{contact.address}}</td>
+        <td>{{contact.telephone}}</td>
+        <td>{{contact.email}}</td>
+      </tr>
+      {{/each}}
       </tbody>
-      </table>
+    </table>
+    {{else}}
+    {{> Loading}}
+    {{/if}}
   </div>
 </template>
