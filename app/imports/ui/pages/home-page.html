@@ -11,6 +11,7 @@
         <th>Phone</th>
         <th>Email</th>
         <th>Edit</th>
+        <th>Copy</th>
       </tr>
       </thead>
 
@@ -23,6 +24,7 @@
         <td>{{contact.telephone}}</td>
         <td>{{contact.email}}</td>
         <td><a href="{{pathFor 'Edit_Contact_Page' _id=contact._id}}">Edit</a></td>
+        <td><a href="{{pathFor 'Copy_Contact_Page' _id=contact._id}}">Copy</a></td>
       </tr>
       {{/each}}
       </tbody>
