@@ -1,0 +1,65 @@
+<template name="Copy_Contact_Page">
+  {{#if Template.subscriptionsReady}}
+  <div style="margin-top: 20px" class="ui container">
+    <form class="ui form contact-data-form {{ errorClass }}">
+      <h4 class="ui dividing header">Copy Contact</h4>
+      <div class="field">
+        <label>Name</label>
+        <div class="two fields">
+          <div class="field">
+            <input type="text" name="first" id="first" placeholder="First Name" value="{{ contactField 'first' }}">
+            {{#if displayFieldError 'first' }}
+            <div class="ui error message">
+              <p>You must specify your first name.</p>
+            </div>
+            {{/if}}
+          </div>
+          <div class="field">
+            <input type="text" name="last" id="last" placeholder="Last Name" value="{{ contactField 'last' }}">
+            {{#if displayFieldError 'last' }}
+            <div class="ui error message">
+              <p>You must specify your last name.</p>
+            </div>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Address</label>
+        <div class="field">
+          <input type="text" name="address" id="address" placeholder="Address" value="{{ contactField 'address' }}">
+          {{#if displayFieldError 'address' }}
+          <div class="ui error message">
+            <p>You must specify your address.</p>
+          </div>
+          {{/if}}
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Telephone/Email</label>
+        <div class="two fields">
+          <div class="field">
+            <input type="text" name="telephone" id="telephone" placeholder="XXX-XXX-XXXX" value="{{ contactField 'telephone' }}">
+            {{#if displayFieldError 'telephone' }}
+            <div class="ui error message">
+              <p>You must specify your telephone number.</p>
+            </div>
+            {{/if}}
+          </div>
+          <div class="field">
+            <input type="text" name="email" id="email" placeholder="foo@bar.com" value="{{ contactField 'email' }}">
+            {{#if displayFieldError 'email' }}
+            <div class="ui error message">
+              <p>You must specify your email.</p>
+            </div>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+      <button class="ui button" type="submit">Create Copy</button>
+    </form>
+  </div>
+  {{/if}}
+</template>

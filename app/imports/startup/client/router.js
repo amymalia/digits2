@@ -22,6 +22,13 @@ FlowRouter.route('/edit_contact/:_id', {
   },
 });
 
+FlowRouter.route('/copy_contact/:_id', {
+  name: 'Copy_Contact_Page',
+  action() {
+    BlazeLayout.render('App_Body', { main: 'Copy_Contact_Page' });
+  },
+});
+
 FlowRouter.notFound = {
   action() {
     BlazeLayout.render('App_Body', { main: 'App_Not_Found' });
