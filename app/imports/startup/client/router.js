@@ -15,7 +15,7 @@ FlowRouter.route('/add_contact', {
   },
 });
 
-FlowRouter.route('/edit_contact/:id', {
+FlowRouter.route('/edit_contact/:_id', {
   name: 'Edit_Contact_Page',
   action() {
     BlazeLayout.render('App_Body', { main: 'Edit_Contact_Page' });
