@@ -38,7 +38,7 @@ export const ContactsSchema = new SimpleSchema({
   },
   email: {
     label: 'email',
-    type: String,
+    type: SimpleSchema.RegEx.Email,
     optional: false,
     max: 200,
   },

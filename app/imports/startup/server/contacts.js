@@ -6,21 +6,21 @@ import { _ } from 'meteor/underscore';
  * @type {*[]}
  */
 const contactSeeds = [
-  { first: 'Dennis',
+  { first: 'Amy',
     last: 'Takayesu',
-    address: '94-452 Hokuala St.',
-    telephone: '808-222-2113',
-    email: 'dennistakayesu@gmail.com' },
-  { first: 'Lyndsay',
-    last: 'Takayesu',
-    address: '3071 Pualei Circle Apt 207',
-    telephone: '808-123-5431',
-    email: 'lyndsayt13@gmail.com' },
-  { first: 'Pineapple',
-    last: 'Cute',
-    address: 'Pineapple Cute St.',
-    telephone: '808-212-5312',
-    email: 'cutepine@gmail.com' },
+    address: '1680 East West Road POST314-7',
+    telephone: '808-956-1111',
+    email: 'amytaka@hawaii.edu' },
+  { first: 'Pizza',
+    last: 'Hut',
+    address: '786 Kapahulu Ave',
+    telephone: '808-738-5900',
+    email: 'pizzahut@gmail.com' },
+  { first: 'Papa',
+    last: 'Johns',
+    address: '1646 Kapiolani Blvd',
+    telephone: '808-592-7272',
+    email: 'papajohns@gmail.com' },
 ];
 
 /**

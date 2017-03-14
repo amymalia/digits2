@@ -9,9 +9,7 @@ import { Contacts, ContactsSchema } from '../../api/contacts/contacts.js';
 const displayErrorMessages = 'displayErrorMessages';
 
 Template.Copy_Contact_Page.onCreated(function onCreated() {
-  this.autorun(() => {
-    this.subscribe('Contacts');
-  });
+  this.subscribe('Contacts');
   this.messageFlags = new ReactiveDict();
   this.messageFlags.set(displayErrorMessages, false);
   this.context = ContactsSchema.namedContext('Copy_Contact_Page');
@@ -19,55 +17,40 @@ Template.Copy_Contact_Page.onCreated(function onCreated() {
 
 
 Template.Copy_Contact_Page.helpers({
-  contactField(fieldName) {
-    const contact = Contacts.findOne(FlowRouter.getParam('_id'));
+  contactDataField(fieldName) {
+    const contactData = Contacts.findOne(FlowRouter.getParam('_id'));
     // See https://dweldon.silvrback.com/guards to understand '&&' in next line.
-    return contact && contact[fieldName];
+    return contactData && contactData[fieldName];
   },
-
   errorClass() {
     return Template.instance().messageFlags.get(displayErrorMessages) ? 'error' : '';
   },
-  displayFieldError(fieldName) {
-    const errorKeys = Template.instance().context.invalidKeys();
-    return _.find(errorKeys, (keyObj) => keyObj.name === fieldName);
+  fieldError(fieldName) {
+    const invalidKeys = Template.instance().context.invalidKeys();
+    const errorObject = _.find(invalidKeys, (keyObj) => keyObj.name === fieldName);
+    return errorObject && Template.instance().context.keyErrorMessage(errorObject.name);
   },
 });
-
-// Template.Edit_Contact_Page.onRendered(function enableSemantic() {
-//   const template = this;
-//   template.subscribe('StudentData', () => {
-//     // Use this template.subscribe callback to guarantee that the following code executes after subscriptions OK.
-//     Tracker.afterFlush(() => {
-//       // Use Tracker.afterFlush to guarantee that the DOM is re-rendered before calling JQuery.
-//       template.$('select.ui.dropdown').dropdown();
-//       template.$('.ui.selection.dropdown').dropdown();
-//       template.$('select.dropdown').dropdown();
-//       template.$('.ui.checkbox').checkbox();
-//       template.$('.ui.radio.checkbox').checkbox();
-//     });
-//   });
-// });
 
 Template.Copy_Contact_Page.events({
   'submit .contact-data-form'(event, instance) {
     event.preventDefault();
     // Get name (text field)
-    const first = `${event.target.first.value} (Copy)`;
-    const last = `${event.target.last.value} (Copy)`;
-    const address = `${event.target.address.value} (Copy)`;
-    const telephone = `${event.target.telephone.value} (Copy)`;
-    const email = `${event.target.email.value} (Copy)`;
+    const first = `${event.target.First.value} (Copy)`;
+    const last = `${event.target.Last.value} (Copy)`;
+    const address = `${event.target.Address.value} (Copy)`;
+    const telephone = `${event.target.Telephone.value} (Copy)`;
+    const email = `${event.target.Email.value} (Copy)`;
 
-    const updatedContact = { first, last, address, telephone, email };
+    const newContactData = { first, last, address, telephone, email };
     // Clear out any old validation errors.
     instance.context.resetValidation();
     // Invoke clean so that newStudentData reflects what will be inserted.
-    ContactsSchema.clean(updatedContact);
+    ContactsSchema.clean(newContactData);
     // Determine validity.
-    instance.context.validate(updatedContact);
+    instance.context.validate(newContactData);
     if (instance.context.isValid()) {
-      const id = Contacts.insert(updatedContact);
+      const id = Contacts.insert(newContactData);
       instance.messageFlags.set(displayErrorMessages, false);
       FlowRouter.go('Home_Page');
     } else {
