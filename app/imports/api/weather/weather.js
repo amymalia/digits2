@@ -6,42 +6,42 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
 /* eslint-disable object-shorthand */
 
-export const Contacts = new Mongo.Collection('Contacts');
+export const Weather = new Mongo.Collection('Weather');
 
 /**
  * Create the schema for Contacts
  */
-export const ContactsSchema = new SimpleSchema({
-  first: {
-    label: 'first',
+export const WeatherSchema = new SimpleSchema({
+  description: {
+    label: 'description',
     type: String,
     optional: false,
     max: 200,
   },
-  last: {
-    label: 'last',
+  temperature: {
+    label: 'coord',
     type: String,
     optional: false,
     max: 200,
   },
-  address: {
-    label: 'address',
+  windSpeed: {
+    label: 'windSpeed',
     type: String,
     optional: false,
     max: 200,
   },
-  telephone: {
-    label: 'telephone',
+  clouds: {
+    label: 'clouds',
     type: String,
     optional: false,
     max: 200,
   },
-  email: {
-    label: 'email',
-    type: SimpleSchema.RegEx.Email,
+  name: {
+    label: 'name',
+    type: String,
     optional: false,
     max: 200,
   },
 });
 
-Contacts.attachSchema(ContactsSchema);
+Weather.attachSchema(WeatherSchema);

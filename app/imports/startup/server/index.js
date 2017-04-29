@@ -1,3 +1,3 @@
 import './accounts.js';
-import './contacts.js';
+import './weather.js';
 import './publications.js';

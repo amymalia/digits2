@@ -2,7 +2,7 @@ import { ReactiveDict } from 'meteor/reactive-dict';
 import { FlowRouter } from 'meteor/kadira:flow-router';
 import { Template } from 'meteor/templating';
 import { _ } from 'meteor/underscore';
-import { Contacts, ContactsSchema } from '../../api/contacts/contacts.js';
+import { Contacts, ContactsSchema } from '../../api/weather/weather.js';
 
 /* eslint-disable object-shorthand, no-unused-vars */
 

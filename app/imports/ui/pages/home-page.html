@@ -1,36 +1,20 @@
 <template name="Home_Page">
-  <div class="ui container">
-
-    {{#if Template.subscriptionsReady}}
-    <table style="margin-top: 20px" class="ui celled table">
-      <thead>
-      <tr>
-        <th>First</th>
-        <th>Last</th>
-        <th>Address</th>
-        <th>Phone</th>
-        <th>Email</th>
-        <th>Edit</th>
-        <th>Copy</th>
-      </tr>
-      </thead>
-
-      <tbody>
-      {{#each contact in contactsList}}
-      <tr>
-        <td>{{contact.first}}</td>
-        <td>{{contact.last}}</td>
-        <td>{{contact.address}}</td>
-        <td>{{contact.telephone}}</td>
-        <td>{{contact.email}}</td>
-        <td><a href="{{pathFor 'Edit_Contact_Page' _id=contact._id}}">Edit</a></td>
-        <td><a href="{{pathFor 'Copy_Contact_Page' _id=contact._id}}">Copy</a></td>
-      </tr>
-      {{/each}}
-      </tbody>
-    </table>
-    {{else}}
-    {{> Loading}}
-    {{/if}}
+  <div style="margin-top: 20px;" class="ui container">
+    <form class="ui form contact-data-form {{ errorClass }}">
+      <div class="field">
+        <div class="two fields">
+          {{> Text_Form_Control label="Latitude" required=true errorMessage=(fieldError "latitude")}}
+          {{> Text_Form_Control label="Longitude" required=true errorMessage=(fieldError "longitude")}}
+        </div>
+      </div>
+      <button class="ui button" type="submit">Submit</button>
+    </form>
+    <div class="ui list">
+      <div class="item">Location is: {{weather.name}}</div>
+      <div class="item">Weather is: {{weather.description}}</div>
+      <div class="item">Temperature is: {{weather.temperature}}K</div>
+      <div class="item">Cloud coverage is: {{weather.clouds}}%</div>
+      <div class="item">Wind speed is: {{weather.windSpeed}}m/s</div>
+    </div>
   </div>
 </template>
