@@ -33,6 +33,6 @@ Template.Home_Page.events({
     const latitude = event.target.Latitude.value;
     const longitude = event.target.Longitude.value;
     Meteor.call('checkWeather', latitude, longitude);
-    Meteor.call('checkRadiation', latitude, longitude);
+    //Meteor.call('checkRadiation', latitude, longitude);
   },
 });

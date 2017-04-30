@@ -17,13 +17,22 @@ Meteor.methods({
     this.unblock();
     try {
       const response = HTTP.get(`http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&APPID=66d972806c94c7fdec001883887e3556`);
+      const responseRadiation = HTTP.get(`https://developer.nrel.gov/api/pvwatts/v5.json?api_key=AlyMNtdT59V5xJq0rG52mYVUjPMf2uuLIQi7ScRI&lat=${latitude}&lon=${longitude}&system_capacity=4&azimuth=180&tilt=40&array_type=1&module_type=1&losses=10&timeframe=hourly`);
+      const radiation = responseRadiation.data.outputs.dn;
+      const today = new Date();
+      const first = new Date(today.getFullYear(), 0, 1);
+      const theDay = Math.round(((today - first) / 1000 / 60 / 60 / 24) + .5, 0);
+      const d = new Date();
+      const n = d.getHours();
+      const index = (theDay * 24) + n;
+      console.log(radiation[index]);
       const weather = {
         description: response.data.weather[0].description,
         temperature: response.data.main.temp,
         windSpeed: response.data.wind.speed,
         clouds: response.data.clouds.all,
         name: response.data.name,
-        radiation: 0,
+        radiation: radiation[index],
       };
       Weather.remove({});
       Weather.insert(weather);

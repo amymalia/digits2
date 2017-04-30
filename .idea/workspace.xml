@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8963424d-8a7c-4b9b-80d7-492582f132bb" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/imports/api/weather/weather.js" afterPath="$PROJECT_DIR$/app/imports/api/weather/weather.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/imports/startup/server/publications.js" afterPath="$PROJECT_DIR$/app/imports/startup/server/publications.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/imports/ui/pages/home-page.js" afterPath="$PROJECT_DIR$/app/imports/ui/pages/home-page.js" />
     </list>
     <ignored path="digits2.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -76,21 +77,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="home-page.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="home-page.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/imports/ui/pages/home-page.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="45" selection-start-line="0" selection-start-column="45" selection-end-line="0" selection-end-column="45" />
-              <folding />
+            <state relative-caret-position="570">
+              <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#45#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="publications.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="publications.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/imports/startup/server/publications.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="38" column="6" selection-start-line="38" selection-start-column="6" selection-end-line="38" selection-end-column="6" />
+            <state relative-caret-position="555">
+              <caret line="50" column="46" selection-start-line="50" selection-start-column="46" selection-end-line="50" selection-end-column="46" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#41#96#0" expanded="true" />
@@ -158,9 +161,9 @@
         <option value="$PROJECT_DIR$/app/imports/ui/layouts/header.html" />
         <option value="$PROJECT_DIR$/app/imports/ui/layouts/footer.html" />
         <option value="$PROJECT_DIR$/app/imports/ui/pages/home-page.html" />
-        <option value="$PROJECT_DIR$/app/imports/ui/pages/home-page.js" />
         <option value="$PROJECT_DIR$/app/imports/api/weather/weather.js" />
         <option value="$PROJECT_DIR$/app/imports/startup/server/publications.js" />
+        <option value="$PROJECT_DIR$/app/imports/ui/pages/home-page.js" />
       </list>
     </option>
   </component>
@@ -174,7 +177,7 @@
     <handled-path value="$PROJECT_DIR$/app/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="36" />
+    <option name="x" value="-89" />
     <option name="y" value="23" />
     <option name="width" value="1276" />
     <option name="height" value="777" />
@@ -595,7 +598,7 @@
     <option name="remove_strategy" value="false" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="36" y="23" width="1276" height="777" extended-state="0" />
+    <frame x="-89" y="23" width="1276" height="777" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -979,21 +982,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/imports/ui/pages/home-page.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="45" selection-start-line="0" selection-start-column="45" selection-end-line="0" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/imports/startup/server/publications.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="38" column="6" selection-start-line="38" selection-start-column="6" selection-end-line="38" selection-end-column="6" />
+        <state relative-caret-position="555">
+          <caret line="50" column="46" selection-start-line="50" selection-start-column="46" selection-end-line="50" selection-end-column="46" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#41#96#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/imports/ui/pages/home-page.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="570">
+          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#45#0" expanded="true" />
           </folding>
         </state>
       </provider>
