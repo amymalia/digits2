@@ -2,37 +2,43 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
     <link rel="stylesheet" href="../stylesheets/font-awesome-4.7.0/css/font-awesome.min.css">
 
-<div id="electricConsumption">
-    <div style="margin-top: 20px" class="row">
+    <div id="electricConsumption" style="padding-bottom: 3em">
 
-        <p>Lab</p>
-        <form action="#">
-            <p class="range-field">
-                <input type="range" id="LabSlider" min="0" max="100" />
-            </p>
-        </form>
+        <h4 style="color: #ff6d00">Your Energy Consumers</h4>
+
+        <div style="margin-top: 20px; " class="row">
+            <p>Lab</p>
+            <form action="#">
+                <p class="range-field">
+                    <input type="range" id="LabSlider" min="0" max="100"/>
+                </p>
+            </form>
+        </div>
+
+        <div style="margin-top: 20px" class="row">
+            <p>Small Appliance</p>
+            <form action="#">
+                <p class="range-field">
+                    <input type="range" id="SmallAppSlider" min="0" max="100"/>
+                </p>
+            </form>
+        </div>
+
+        <div style="margin-top: 20px" class="row">
+
+            <p>Large Appliance</p>
+            <form action="#">
+                <p class="range-field">
+                    <input type="range" id="LargeAppSlider" min="0" max="100"/>
+                </p>
+            </form>
+
+        </div>
+
+        <div class="row">
+            <p>Add Device </p><a class="btn-floating btn-small waves-effect waves-light teal" style="text-align: left"><i            class="plus icon"></i>
+        </a>
+        </div>
+
     </div>
-
-    <div style="margin-top: 20px" class="row">
-
-        <p>Small Appliance</p>
-        <form action="#">
-            <p class="range-field">
-                <input type="range" id="SmallAppSlider" min="0" max="100" />
-            </p>
-        </form>
-
-    </div>
-
-    <div style="margin-top: 20px" class="row">
-
-        <p>Large Appliance</p>
-        <form action="#">
-            <p class="range-field">
-                <input type="range" id="LargeAppSlider" min="0" max="100" />
-            </p>
-        </form>
-
-    </div>
-</div>
 </template>
