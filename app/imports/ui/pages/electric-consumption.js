@@ -19,9 +19,9 @@ Template.Electric_Consumption_Page.onRendered(function onRendered() {
 //name
 //time--> minutes
 //power usage
-let device1 = {"Lab", 60, 2000};
-let device2 = {"Small Appliance", 90, 500};
-let device3 = {"Large Appliance", 30, 1000};
+//let device1 = {"Lab", 60, 2000};
+//let device2 = {"Small Appliance", 90, 500};
+//let device3 = {"Large Appliance", 30, 1000};
 
 Template.Electric_Consumption_Page.helpers({
 

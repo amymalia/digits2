@@ -25,12 +25,14 @@ Meteor.methods({
       const n = d.getHours();
       const index = (theDay * 24) + n;
       //const for 6 days ahead
-      const radiationForecast = [0,0,0,0,0,0];
+      let radiationForecast = [0,0,0,0,0,0];
 
       for (var j = 0; j < 6; j++) {
         for (var k = 0; k < 24; k++) {
           radiationForecast[j] += radiationArray[((theDay + j + 1) * 24) + k];
         }
+        console.log('Radiation Forecast j ' + (radiationForecast[j]/24));
+        radiationForecast[j] = Math.round((radiationForecast[j]/24));
       }
 
       let avgHourly = radiationArray[index];
