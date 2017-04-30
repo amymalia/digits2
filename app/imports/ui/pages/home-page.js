@@ -16,6 +16,7 @@ Template.Home_Page.helpers({
    */
   weather() {
     const w = Weather.find().fetch();
+    console.log(w[0].devices);
     return w[0];
   },
   efficiency() {

@@ -54,14 +54,18 @@ Meteor.methods({
       const clouds = response.data.clouds.all;
       const name = response.data.name;
       const radiation = avgHourly;
-      const weather = { description, temperature, windSpeed, clouds, name, radiation, radiationForecast };
+      const devices = [{ name:'Lab', power:400, time:0 },
+        { name:'Small Device', power:40, time:0 },
+        { name:'Large Device', power:250, time:0 }];
+      console.log(devices);
+      const weather = { description, temperature, windSpeed, clouds, name, radiation, devices, radiationForecast };
       if (Weather.find().count() === 0) {
         Weather.define(weather);
       } else {
         const weathers = Weather.find().fetch();
         const weather = weathers[0];
         Weather.update(weather._id, {
-          $set: { description, temperature, windSpeed, clouds, name, radiation, radiationForecast },
+          $set: { description, temperature, windSpeed, clouds, name, radiation, devices, radiationForecast },
         });
       }
       return weather;
