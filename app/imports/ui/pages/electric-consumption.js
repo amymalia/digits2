@@ -16,18 +16,19 @@ Template.Electric_Consumption_Page.onRendered(function onRendered() {
      //   $('.modal').modal();
     //});
 });
-
+//name
+//time--> minutes
+//power usage
+let device1 = {"Lab", 60, 2000};
+let device2 = {"Small Appliance", 90, 500};
+let device3 = {"Large Appliance", 30, 1000};
 
 Template.Electric_Consumption_Page.helpers({
 
-    sliderValue(deviceId) {
-        const sliderData = document.getElementById(deviceId).value;
-        return sliderData;
+    addDevice: function(name, time, power){
+
     },
 
 
-    errorClass() {
-        return Template.instance().messageFlags.get(displayErrorMessages) ? 'error' : '';
-    },
 
 });
