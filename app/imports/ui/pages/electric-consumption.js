@@ -16,3 +16,18 @@ Template.Electric_Consumption_Page.onRendered(function onRendered() {
      //   $('.modal').modal();
     //});
 });
+
+
+Template.Electric_Consumption_Page.helpers({
+
+    sliderValue(deviceId) {
+        const sliderData = document.getElementById(deviceId).value;
+        return sliderData;
+    },
+
+
+    errorClass() {
+        return Template.instance().messageFlags.get(displayErrorMessages) ? 'error' : '';
+    },
+
+});

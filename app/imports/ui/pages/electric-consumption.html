@@ -1,48 +1,37 @@
 <template name="Electric_Consumption_Page">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
     <link rel="stylesheet" href="../stylesheets/font-awesome-4.7.0/css/font-awesome.min.css">
-  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 
-  <div class="ui center aligned compact segment">
-    <div id="electricConsumption" style="padding-bottom: 3em">
+    <div class="ui center aligned compact segment">
+        <div id="electricConsumption" style="padding-bottom: 3em">
 
-      <h4 style="color: #ff6d00">Your Energy Consumers</h4>
+            <h4 style="color: #ff6d00">Your Energy Consumers</h4>
 
-      <div style="margin-top: 20px; " class="row">
-        <p>Lab</p>
-        <form action="#">
-          <p class="range-field">
-            <input type="range" id="LabSlider" min="0" max="24"/>
-          </p>
-        </form>
-      </div>
+            <div class="ui grid">
+                <div class="three wide column">Name</div>
+                <div class="nine wide column">Hours Used</div>
+                <div class="four wide column">Consumption Rate</div>
 
-      <div style="margin-top: 20px" class="row">
-        <p>Small Appliance</p>
-        <form action="#">
-          <p class="range-field">
-            <input type="range" id="SmallAppSlider" min="0" max="24"/>
-          </p>
-        </form>
-      </div>
-
-      <div style="margin-top: 20px" class="row">
-        <p>Large Appliance</p>
-        <form action="#">
-          <p class="range-field">
-            <input type="range" id="LargeAppSlider" min="0" max="24"/>
-          </p>
-        </form>
-
-      </div>
-
-      <div class="row">
-        <p>Add Device </p><a class="btn-floating btn-small waves-effect waves-light teal" style="text-align: left"><i            class="plus icon"></i>
-      </a>
-      </div>
-
+                <div class="three wide column"><p>Lab</p></div>
+                <div class="nine wide column">
+                    <form action="#">
+                        <p class="range-field">
+                            <input type="range" id="LabSlider" min="0" max="24"/>
+                        </p>
+                    </form>
+                </div>
+                <div class="four wide column"><p>3kWh per hour</p></div>
+                
+                <div class="four column row">
+                    <div class="right floated column">
+                        <p>Add Device </p><a class="btn-floating btn-small waves-effect waves-light teal"
+                                             style="text-align: left"><i class="plus icon"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 
 </template>
