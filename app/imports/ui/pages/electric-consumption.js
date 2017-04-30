@@ -25,7 +25,7 @@ Template.Electric_Consumption_Page.onRendered(function onRendered() {
 
 Template.Electric_Consumption_Page.helpers({
 
-    addDevice: function(name, power, time){
+    addDevice: function(name, time, power){
 
     },
 
