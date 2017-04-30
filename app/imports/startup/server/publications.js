@@ -33,17 +33,17 @@ Meteor.methods({
       return false;
     }
   },
-  checkRadiation() {
-    //check(latitude, String);
-    //check(longitude, String);
+  checkRadiation(latitude, longitude) {
+    check(latitude, String);
+    check(longitude, String);
     this.unblock();
     console.log('hiiiii');
     try {
       const weather = Weather.find().fetch();
-      const response = HTTP.get('https://developer.nrel.gov/api/pvwatts/v5.json?api_key=AlyMNtdT59V5xJq0rG52mYVUjPMf2uuLIQi7ScRI&lat=21&lon=-157&system_capacity=4&azimuth=180&tilt=40&array_type=1&module_type=1&losses=10&timeframe=hourly');
+      const response = HTTP.get(`https://developer.nrel.gov/api/pvwatts/v5.json?api_key=AlyMNtdT59V5xJq0rG52mYVUjPMf2uuLIQi7ScRI&lat=${latitude}&lon=${longitude}&system_capacity=4&azimuth=180&tilt=40&array_type=1&module_type=1&losses=10&timeframe=hourly`);
       const radiation = response.dn;
       console.log('hi');
-      //console.log(response);
+      console.log(response);
       Weather.update(weather[0]._id, radiation);
       return true;
     } catch (e) {
