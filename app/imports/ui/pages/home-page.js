@@ -51,11 +51,11 @@ Template.Home_Page.onCreated(function onCreated() {
 });
 
 Template.Home_Page.events({
-  'submit .contact-data-form'(event, instance) {
+  'submit .location-data'(event, instance) {
     event.preventDefault();
     // Get name (text field)
-    const latitude = event.target.Latitude.value;
-    const longitude = event.target.Longitude.value;
+    const latitude = document.getElementById("latInput").value;
+    const longitude = document.getElementById("longInput").value;
     Meteor.call('checkWeather', latitude, longitude);
     //Meteor.call('checkRadiation', latitude, longitude);
   },

@@ -20,6 +20,8 @@ export const WeatherSchema = new SimpleSchema({
   radiation: { label: 'radiation', type: String, optional: false, max: 200, },
   areaPanel: { label: 'areaPanel', type: String, optional: true, max: 200, },
   absorbPanel: { label: 'absorbPanel', type: String, optional: true, max: 200, },
+  storedEnergy: { label: 'storedEnergy', type: String, optional: true, max: 200, },
+  devices: { label: 'devices', type: [Object], optional: true, max: 200, },
 });
 
 Weather.attachSchema(WeatherSchema);

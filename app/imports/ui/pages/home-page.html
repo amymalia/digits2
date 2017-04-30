@@ -14,16 +14,20 @@
           CHANGE LOCATION SETTINGS
         </div>
         <div class="content">
-          <div class="ui container">
-            <form class="ui form contact-data-form {{ errorClass }}">
-              <div style="width: 450px" class="field">
-                <div class="two fields">
-                  {{> Text_Form_Control label="Latitude" required=true errorMessage=(fieldError "latitude")}}
-                  {{> Text_Form_Control label="Longitude" required=true errorMessage=(fieldError "longitude")}}
-                </div>
+          <div class="container">
+            <div class="row">
+              <div class="col s12">
+                <form class="location-data">
+                  <p>Latitude</p>
+                  <input placeholder="degrees" id="latInput" type="text" class="validate">
+
+                  <p>Longitude</p>
+                  <input placeholder="degrees" id="longInput" type="text" class="validate">
+
+                  <button class="ui button" type="submit">Submit</button>
+                </form>
               </div>
-              <button class="ui button" type="submit">Submit</button>
-            </form>
+            </div>
           </div>
         </div>
         <div class="title">
@@ -60,6 +64,9 @@
         <div class="item">Cloud coverage is: {{weather.clouds}}%</div>
         <div class="item">Wind speed is: {{weather.windSpeed}}m/s</div>
         <div class="item">Efficiency is: {{efficiency}}W/m</div>
+        <div class="item">Panel Area is: {{weather.areaPanel}}m^2</div>
+        <div class="item">Panel Absorption is: {{weather.absorbPanel}}%</div>
+
       </div>
     </div>
   </div>
