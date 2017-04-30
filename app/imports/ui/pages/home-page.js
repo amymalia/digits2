@@ -45,9 +45,7 @@ Template.Home_Page.helpers({
 });
 
 Template.Home_Page.onCreated(function onCreated() {
-  this.autorun(() => {
-    this.subscribe('Weather');
-  });
+    this.subscribe(Weather.getPublicationName());
 });
 
 Template.Home_Page.events({

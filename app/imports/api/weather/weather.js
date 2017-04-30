@@ -1,27 +1,65 @@
-/**
- * Created by ataka on 10/16/16.
- */
-import { Mongo } from 'meteor/mongo';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import BaseCollection from '/imports/api/base/BaseCollection';
+import { check } from 'meteor/check';
+import { Meteor } from 'meteor/meteor';
+import { _ } from 'meteor/underscore';
 
-/* eslint-disable object-shorthand */
-
-export const Weather = new Mongo.Collection('Weather');
+/** @module Interest */
 
 /**
- * Create the schema for Contacts
+ * Represents a specific interest, such as "Software Engineering".
+ * @extends module:Base~BaseCollection
  */
-export const WeatherSchema = new SimpleSchema({
-  description: { label: 'description', type: String, optional: false, max: 200, },
-  temperature: { label: 'coord', type: String, optional: false, max: 200, },
-  windSpeed: { label: 'windSpeed', type: String, optional: false, max: 200, },
-  clouds: { label: 'clouds', type: String, optional: false, max: 200, },
-  name: { label: 'name', type: String, optional: false, max: 200, },
-  radiation: { label: 'radiation', type: String, optional: false, max: 200, },
-  areaPanel: { label: 'areaPanel', type: String, optional: true, max: 200, },
-  absorbPanel: { label: 'absorbPanel', type: String, optional: true, max: 200, },
-  storedEnergy: { label: 'storedEnergy', type: String, optional: true, max: 200, },
-  devices: { label: 'devices', type: [Object], optional: true, max: 200, },
-});
+class WeatherCollection extends BaseCollection {
 
-Weather.attachSchema(WeatherSchema);
+  /**
+   * Creates the Interest collection.
+   */
+  constructor() {
+    super('Weather', new SimpleSchema({
+      description: { type: String, optional: false },
+      temperature: { type: String, optional: false },
+      windSpeed: { type: String, optional: false },
+      clouds: { type: String, optional: false },
+      name: { type: String, optional: false },
+      radiation: { type: String, optional: false },
+      areaPanel: { type: String, optional: true },
+      absorbPanel: { type: String, optional: true },
+      storedEnergy: { type: String, optional: true },
+      devices: { type: [Object], optional: true },
+    }));
+  }
+
+  /**
+   * Defines a new Interest.
+   * @example
+   * Interests.define({ name: 'Software Engineering',
+   *                    description: 'Methods for group development of large, high quality software systems' });
+   * @param { Object } description Object with keys name and description.
+   * Name must be previously undefined. Description is optional.
+   * Creates a "slug" for this name and stores it in the slug field.
+   * @throws {Meteor.Error} If the interest definition includes a defined name.
+   * @returns The newly created docID.
+   */
+  define({ description, temperature, windSpeed, clouds, name, radiation, areaPanel = 0, absorbPanel = 0, storedEnergy = 0, devices = [{ name:"Lab", power:400, time:0 }, { name:"Small Device", power:40, time:0 }, { name:"Large Device", power:250, time:0 }] }) {
+    console.log(devices);
+    return this._collection.insert({ description, temperature, windSpeed, clouds, name, radiation, areaPanel, absorbPanel, storedEnergy, devices });
+  }
+
+  /**
+   * Returns an object representing the Interest docID in a format acceptable to define().
+   * @param docID The docID of an Interest.
+   * @returns { Object } An object representing the definition of docID.
+   */
+  dumpOne(docID) {
+    const doc = this.findDoc(docID);
+    const name = doc.name;
+    const description = doc.description;
+    return { name, description };
+  }
+}
+
+/**
+ * Provides the singleton instance of this class to all other entities.
+ */
+export const Weather = new WeatherCollection();
