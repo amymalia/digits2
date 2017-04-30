@@ -29,9 +29,10 @@ Template.Home_Page.onCreated(function onCreated() {
     this.subscribe('Weather');
 
   });
+});
 
-
-
+Template.Home_Page.onRendered(function onRendered() {
+  this.$('.ui.accordion').accordion();
 });
 
 Template.Home_Page.events({
