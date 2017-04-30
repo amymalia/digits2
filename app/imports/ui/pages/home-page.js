@@ -59,6 +59,18 @@ Template.Home_Page.events({
     Meteor.call('checkWeather', latitude, longitude);
     //Meteor.call('checkRadiation', latitude, longitude);
   },
+  'submit .panel-data'(event, instance) {
+    event.preventDefault();
+    // Get name (text field)
+    const areaPanel = document.getElementById("panelAreaInput").value;
+    const absorbPanel = document.getElementById("panelAbsorbInput").value;
+    const weathers = Weather.find().fetch();
+    const weather = weathers[0];
+    Weather.update(weather._id, {
+     $set: { areaPanel, absorbPanel},
+    });
+    //Meteor.call('checkRadiation', latitude, longitude);
+  },
 });
 
 Template.Home_Page.onRendered(function onRendered() {
