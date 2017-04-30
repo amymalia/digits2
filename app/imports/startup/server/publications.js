@@ -25,6 +25,15 @@ Meteor.methods({
       const d = new Date();
       const n = d.getHours();
       const index = (theDay * 24) + n;
+      let avgHourly = radiation[index];
+      for(var i = 0; i < 480; i += 24)
+      {
+        avgHourly += radiation[index + i];
+      }
+      for(var i = 0; i > 480; i += 24)
+      {
+          avgHourly += radiation[index - i];
+      }
       console.log(radiation[index]);
       const weather = {
         description: response.data.weather[0].description,
@@ -32,7 +41,7 @@ Meteor.methods({
         windSpeed: response.data.wind.speed,
         clouds: response.data.clouds.all,
         name: response.data.name,
-        radiation: radiation[index],
+        radiation: avgHourly,
       };
       Weather.remove({});
       Weather.insert(weather);

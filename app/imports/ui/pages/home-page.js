@@ -2,6 +2,50 @@ import { Template } from 'meteor/templating';
 import { Weather } from '../../api/weather/weather.js';
 import { Meteor } from 'meteor/meteor';
 
+function totalConsumption() {
+  let t_consump = 0;
+  const w = Weather.find().fetch()[0];
+
+  for(var i = 0; i < w.devices.length; i ++)
+  {
+    t_consump+= w.devices[i].power;
+  }
+  return t_consump;
+}
+
+function totalProduction() {
+    let t_prod = 0;
+    const w = Weather.find().fetch()[0];
+    const cloud_percent = parseFloat(w.clouds)/100.00;
+    const p = (1 - (0.75 * (Math.pow(cloud_percent, 3))));
+    const actual_radiation = p * parseFloat(w.radiation);
+
+    t_prod = w.areaPanel * w.absorbPanel * actual_radiation;
+    return t_prod;
+}
+
+//create a function to update storeEnergy every minute using totalconsumption/totalProduction
+function energyTime() {
+  //this will be in minutes
+    let energy_left_min = 0;
+    const w = Weather.find().fetch()[0];
+    const stored = w.storedEnergy;
+    energy_left_min = stored / (totalProduction() - totalConsumption())/60.00;
+    return energy_left_min;
+}
+
+function
+
+
+window.setInterval(function(){
+    const storedEnergy += (totalProduction() - totalConsumption())/60.00;
+    const w = Weather.find().fetch()[0];
+    w.update(weather._id, {
+      $set: {storedEnergy},
+    });
+    energyTime();
+}, 60000);
+
 Template.Home_Page.helpers({
   errorClass() {
     return Template.instance().messageFlags.get(displayErrorMessages) ? 'error' : '';
@@ -18,30 +62,11 @@ Template.Home_Page.helpers({
     const w = Weather.find().fetch();
     return w[0];
   },
-  efficiency() {
-    const w_temp = Weather.find().fetch();
-    const w = w_temp[0];
-    const cloud_percent = parseFloat(w.clouds)/100.00;
-    // const day = dayofYear(new Date());
-    // const rad_ind = parseInt(day)*24;
-    const p = (1 - (0.75 * (Math.pow(cloud_percent, 3))));
-    const actual_radiation = p * parseFloat(w.radiation);
-    // get from ui total_consumption per hour
-    let total_consumption = 500;
-    // get panelEff from ui
-    let panelEff = .20;
-    // assign total_consumption or return it
-
-    // get panel size from ui
-    const panelSize = 8;
-    const total_energy = actual_radiation*panelSize*panelEff - total_consumption;
-    console.log(cloud_percent);
-    console.log(p);
-    console.log(actual_radiation);
-    console.log(actual_radiation*panelSize*panelEff);
-    console.log(total_energy);
+  total_energy() {
+    const total_energy = totalProduction() - total_consumption();
     return total_energy;
   },
+
 });
 
 Template.Home_Page.onCreated(function onCreated() {
