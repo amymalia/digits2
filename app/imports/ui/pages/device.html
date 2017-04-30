@@ -1,0 +1,20 @@
+<template name="Device">
+
+    <div class="three wide column"><p>{{name}}</p></div>
+    <div class="nine wide column">
+        <form action="#">
+            <p class="range-field">
+                <input type="range" id="LabSlider" min="0" max="24"/>
+
+            </p>
+        </form>
+    </div>
+    <div class="four wide column"><p>{{power}}W per hour</p></div>
+
+    <div class="four column row">
+        <div class="right floated column">
+            <p>Add Device </p><a class="btn-floating btn-small waves-effect waves-light teal"
+                                 style="text-align: left"><i class="plus icon"></i></a>
+        </div>
+    </div>
+</template>
