@@ -2,6 +2,9 @@ import { Template } from 'meteor/templating';
 import { Weather } from '../../api/weather/weather.js';
 import { Meteor } from 'meteor/meteor';
 
+
+
+
 Template.Home_Page.helpers({
   errorClass() {
     return Template.instance().messageFlags.get(displayErrorMessages) ? 'error' : '';
@@ -18,12 +21,17 @@ Template.Home_Page.helpers({
     const w = Weather.find().fetch();
     return w[0];
   },
+
 });
 
 Template.Home_Page.onCreated(function onCreated() {
   this.autorun(() => {
     this.subscribe('Weather');
+
   });
+
+
+
 });
 
 Template.Home_Page.events({
@@ -35,3 +43,4 @@ Template.Home_Page.events({
     Meteor.call('checkWeather', latitude, longitude);
   },
 });
+

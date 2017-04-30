@@ -9,3 +9,7 @@ import './edit-contact-page.js';
 
 import './copy-contact-page.html';
 import './copy-contact-page.js';
+
+import './electric-consumption.html'
+import './solar-panel-info.html'
+import './total-energy.html'

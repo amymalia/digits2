@@ -1,0 +1,37 @@
+<template name="Solar_Panel_Info">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+    <link rel="stylesheet" href="../stylesheets/font-awesome-4.7.0/css/font-awesome.min.css">
+
+    <div style="margin-top: 20px" class="row">
+
+        <div class="container">
+            <p>Your Solar Panel</p>
+
+            <div class="row">
+
+
+                <div class="col s12">
+                    <p> Number of Panels</p>
+                    <input placeholder="#" id="numPanelsInput" type="text" class="validate">
+
+                    <p>Solar Panel Area</p>
+                    <input placeholder="m^2" id="panelAreaInput" type="text" class="validate">
+
+
+
+
+                    <form action="#">
+                        <p class="range-field" id="slider">
+                            <input type="range" id="test5" min="0" max="100"/>
+                        </p>
+                    </form>
+
+                    <p>Absorbtion Index</p>
+                    <input placeholder="%" id="absorbtionIndexInput" type="text" class="validate">
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

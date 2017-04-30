@@ -1,20 +1,43 @@
 <template name="Home_Page">
-  <div style="margin-top: 20px;" class="ui container">
-    <form class="ui form contact-data-form {{ errorClass }}">
-      <div class="field">
-        <div class="two fields">
-          {{> Text_Form_Control label="Latitude" required=true errorMessage=(fieldError "latitude")}}
-          {{> Text_Form_Control label="Longitude" required=true errorMessage=(fieldError "longitude")}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+
+    <div style="margin-top: 20px;" class="ui container">
+        <form class="ui form contact-data-form {{ errorClass }}">
+            <div class="field">
+                <div class="two fields">
+                    {{> Text_Form_Control label="Latitude" required=true errorMessage=(fieldError "latitude")}}
+                    {{> Text_Form_Control label="Longitude" required=true errorMessage=(fieldError "longitude")}}
+                </div>
+            </div>
+            <button class="ui button" type="submit">Submit</button>
+        </form>
+        <div class="ui list">
+            <div class="item">Location is: {{weather.name}}</div>
+            <div class="item">Weather is: {{weather.description}}</div>
+            <div class="item">Temperature is: {{weather.temperature}}K</div>
+            <div class="item">Cloud coverage is: {{weather.clouds}}%</div>
+            <div class="item">Wind speed is: {{weather.windSpeed}}m/s</div>
         </div>
-      </div>
-      <button class="ui button" type="submit">Submit</button>
-    </form>
-    <div class="ui list">
-      <div class="item">Location is: {{weather.name}}</div>
-      <div class="item">Weather is: {{weather.description}}</div>
-      <div class="item">Temperature is: {{weather.temperature}}K</div>
-      <div class="item">Cloud coverage is: {{weather.clouds}}%</div>
-      <div class="item">Wind speed is: {{weather.windSpeed}}m/s</div>
+
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="container">
+                        {{>Electric_Consumption_Page}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="card">
+                {{>Solar_Panel_Info}}
+            </div>
+        </div>
+
+        <div class="col-sm-8">
+            <div class="card">
+                {{>Total_Energy}}
+            </div>
+        </div>
     </div>
-  </div>
 </template>
