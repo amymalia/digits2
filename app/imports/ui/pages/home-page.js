@@ -50,7 +50,7 @@ function moneyConsumed() {
     return posEnergyRate;
 }
 
-//create a function to update storeEnergy every minute using totalconsumption/totalProduction
+//create a function to update storeEnergy every minute using totalConsumption/totalProduction
 function energyTime() {
   //this will be how many minutes of current usage left
     let energy_left_min = 0;
@@ -59,6 +59,7 @@ function energyTime() {
     energy_left_min = stored / (totalProduction() - totalConsumption())/60.00;
     return energy_left_min;
 }
+
 
 
 

@@ -25,6 +25,16 @@ Meteor.methods({
       const d = new Date();
       const n = d.getHours();
       const index = (theDay * 24) + n;
+      //const for 6 days ahead
+      const radiationForecast = [];
+
+      for (var j = 0; j < 6; j++) {
+          for (var k = 0; k < 24; k++) {
+              radiationForecast[j] += radiation[((theDay + j + 1) * 24) + k];
+          }
+      }
+
+
       let avgHourly = radiation[index];
       for(var i = 0; i < 480; i += 24)
       {
@@ -42,6 +52,7 @@ Meteor.methods({
         clouds: response.data.clouds.all,
         name: response.data.name,
         radiation: avgHourly,
+        dayRadiationForecast:  radiationForecast;
       };
       Weather.remove({});
       Weather.insert(weather);
@@ -67,6 +78,7 @@ Meteor.methods({
       const d = new Date();
       const n = d.getHours();
       const index = (theDay * 24) + n;
+
       console.log(radiation[index]);
       const newWeather = {
         description: weather.description,
