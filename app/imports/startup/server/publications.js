@@ -23,7 +23,7 @@ Meteor.methods({
         windSpeed: response.data.wind.speed,
         clouds: response.data.clouds.all,
         name: response.data.name,
-        radiation: {},
+        radiation: 0,
       };
       Weather.remove({});
       Weather.insert(weather);
@@ -36,15 +36,31 @@ Meteor.methods({
   checkRadiation(latitude, longitude) {
     check(latitude, String);
     check(longitude, String);
-    this.unblock();
+    //this.unblock();
     console.log('hiiiii');
     try {
-      const weather = Weather.find().fetch();
+      const weathers = Weather.find().fetch();
+      const weather = weathers[0];
       const response = HTTP.get(`https://developer.nrel.gov/api/pvwatts/v5.json?api_key=AlyMNtdT59V5xJq0rG52mYVUjPMf2uuLIQi7ScRI&lat=${latitude}&lon=${longitude}&system_capacity=4&azimuth=180&tilt=40&array_type=1&module_type=1&losses=10&timeframe=hourly`);
-      const radiation = response.dn;
+      const radiation = response.data.outputs.dn;
+      const today = new Date();
+      const first = new Date(today.getFullYear(), 0, 1);
+      const theDay = Math.round(((today - first) / 1000 / 60 / 60 / 24) + .5, 0);
+      const d = new Date();
+      const n = d.getHours();
+      const index = (theDay * 24) + n;
+      console.log(radiation[index]);
+      const newWeather = {
+        description: weather.description,
+        temperature: weather.temperature,
+        windSpeed: weather.windSpeed,
+        clouds: weather.clouds,
+        name: weather.name,
+        radiation: radiation[index],
+      };
+      Weather.remove({});
+      Weather.insert(newWeather);
       console.log('hi');
-      console.log(response);
-      Weather.update(weather[0]._id, radiation);
       return true;
     } catch (e) {
       // Got a network error, timeout, or HTTP error in the 400 or 500 range.

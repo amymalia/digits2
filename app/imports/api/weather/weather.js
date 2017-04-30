@@ -43,8 +43,8 @@ export const WeatherSchema = new SimpleSchema({
     max: 200,
   },
   radiation: {
-    label: 'name',
-    type: Object,
+    label: 'radiation',
+    type: String,
     optional: false,
     max: 200,
   },
