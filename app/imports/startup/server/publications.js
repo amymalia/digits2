@@ -23,10 +23,29 @@ Meteor.methods({
         windSpeed: response.data.wind.speed,
         clouds: response.data.clouds.all,
         name: response.data.name,
+        radiation: {},
       };
       Weather.remove({});
       Weather.insert(weather);
       return weather;
+    } catch (e) {
+      // Got a network error, timeout, or HTTP error in the 400 or 500 range.
+      return false;
+    }
+  },
+  checkRadiation() {
+    //check(latitude, String);
+    //check(longitude, String);
+    this.unblock();
+    console.log('hiiiii');
+    try {
+      const weather = Weather.find().fetch();
+      const response = HTTP.get('https://developer.nrel.gov/api/pvwatts/v5.json?api_key=AlyMNtdT59V5xJq0rG52mYVUjPMf2uuLIQi7ScRI&lat=21&lon=-157&system_capacity=4&azimuth=180&tilt=40&array_type=1&module_type=1&losses=10&timeframe=hourly');
+      const radiation = response.dn;
+      console.log('hi');
+      //console.log(response);
+      Weather.update(weather[0]._id, radiation);
+      return true;
     } catch (e) {
       // Got a network error, timeout, or HTTP error in the 400 or 500 range.
       return false;

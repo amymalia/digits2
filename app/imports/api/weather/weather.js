@@ -42,6 +42,12 @@ export const WeatherSchema = new SimpleSchema({
     optional: false,
     max: 200,
   },
+  radiation: {
+    label: 'name',
+    type: Object,
+    optional: false,
+    max: 200,
+  },
 });
 
 Weather.attachSchema(WeatherSchema);
