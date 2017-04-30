@@ -24,9 +24,35 @@ function totalProduction() {
     return t_prod;
 }
 
+function barRatio() {
+  const totalEnergy = totalConsumption() + totalProduction();
+  return totalProduction()/totalEnergy;
+}
+
+function avgMoneyGenerated() {
+  //dollars per hour from average rate after production - consumption
+  const costPerKwh = 0.11;
+  const avgEnergyRate = costPerKwh * (totalProduction() - totalConsumption());
+  return avgEnergyRate;
+}
+
+function moneyGenerated() {
+    //dollars per hour from production
+    const costPerKwh = 0.11;
+    const posEnergyRate = costPerKwh * totalProduction();
+    return posEnergyRate;
+}
+
+function moneyConsumed() {
+    //dollars per hour from production
+    const costPerKwh = 0.11;
+    const posEnergyRate = costPerKwh * totalConsumption();
+    return posEnergyRate;
+}
+
 //create a function to update storeEnergy every minute using totalconsumption/totalProduction
 function energyTime() {
-  //this will be in minutes
+  //this will be how many minutes of current usage left
     let energy_left_min = 0;
     const w = Weather.find().fetch()[0];
     const stored = w.storedEnergy;
@@ -34,7 +60,6 @@ function energyTime() {
     return energy_left_min;
 }
 
-function
 
 
 window.setInterval(function(){
