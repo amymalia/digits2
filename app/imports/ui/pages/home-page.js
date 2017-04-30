@@ -60,3 +60,7 @@ Template.Home_Page.events({
     //Meteor.call('checkRadiation', latitude, longitude);
   },
 });
+
+Template.Home_Page.onRendered(function onRendered() {
+  this.$('.ui.accordion').accordion();
+});
