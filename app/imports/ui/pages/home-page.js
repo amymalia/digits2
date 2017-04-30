@@ -31,11 +31,27 @@ Template.Home_Page.helpers({
     const w_temp = Weather.find().fetch();
     const w = w_temp[0];
     const cloud_percent = parseFloat(w.clouds)/100.00;
-    const day = dayofYear(new Date());
-    const rad_ind = day*24;
-    const actual_radiation = cloud_percent * w.radiation[rad_ind];
-    //insert actual radiation into weather collection.return actual_radiation;
+    //const day = dayofYear(new Date());
+    //const rad_ind = parseInt(day)*24;
+    const actual_radiation = cloud_percent * w.radiation;
+    let total_consumption;
+    //for each slider in electrical consumption label do this:
+    total_consumption += slider.value;
+    //assign total_consumption or return it
+
+    //get panel size from ui
+    const panelSize;
+    const total_energy = actual_radiation*panelSize - total_consumption
   },
+  totalEnergyUse() {
+    let total_consumption;
+    //for each slider in electrical consumption label do this:
+      total_consumption += slider.value;
+      //assign total_consumption or return it
+  },
+  totalEnergyGained() {
+
+  }
 });
 
 Template.Home_Page.onCreated(function onCreated() {
