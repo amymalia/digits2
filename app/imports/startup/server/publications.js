@@ -24,21 +24,42 @@ Meteor.methods({
       const d = new Date();
       const n = d.getHours();
       const index = (theDay * 24) + n;
+      //const for 6 days ahead
+      const radiationForecast = [0,0,0,0,0,0];
+
+      for (var j = 0; j < 6; j++) {
+        for (var k = 0; k < 24; k++) {
+          radiationForecast[j] += radiationArray[((theDay + j + 1) * 24) + k];
+        }
+      }
+
+      let avgHourly = radiationArray[index];
+      for(var i = 0; i < 480; i += 24)
+      {
+        avgHourly += radiationArray[index + i];
+      }
+      for(var i = 0; i > 480; i += 24)
+      {
+        avgHourly += radiationArray[index - i];
+      }
+
+      console.log('Radiation Forecast' + radiationForecast);
+
       console.log(radiationArray[index]);
       const description = response.data.weather[0].description;
       const temperature = response.data.main.temp;
       const windSpeed = response.data.wind.speed;
       const clouds = response.data.clouds.all;
       const name = response.data.name;
-      const radiation = radiationArray[index];
-      const weather = { description, temperature, windSpeed, clouds, name, radiation };
+      const radiation = avgHourly;
+      const weather = { description, temperature, windSpeed, clouds, name, radiation, radiationForecast };
       if (Weather.find().count() === 0) {
         Weather.define(weather);
       } else {
         const weathers = Weather.find().fetch();
         const weather = weathers[0];
         Weather.update(weather._id, {
-          $set: { description, temperature, windSpeed, clouds, name, radiation },
+          $set: { description, temperature, windSpeed, clouds, name, radiation, radiationForecast },
         });
       }
       return weather;
