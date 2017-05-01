@@ -116,6 +116,12 @@ Template.Home_Page.helpers({
     console.log('total energy: ' + total_energy);
     return total_energy;
   },
+  totalConsumptionHelper() {
+    return Math.round(totalConsumption()/1000);
+  },
+  totalProductionHelper() {
+    return Math.round(totalProduction()/1000);
+  }
 });
 
 Template.Home_Page.onCreated(function onCreated() {
