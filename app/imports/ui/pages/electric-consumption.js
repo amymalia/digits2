@@ -43,6 +43,11 @@ Template.Electric_Consumption_Page.helpers({
     console.log('Slider Value: ' + newVal);
     //document.getElementById(deviceName).innerHTML = newVal;
   },
+  hours(minutes) {
+    const hours = Math.floor(minutes/60);
+    const min = minutes - (60 * hours);
+    return `${hours} hours and ${min} minutes`;
+  },
 });
 
 Template.Electric_Consumption_Page.events({

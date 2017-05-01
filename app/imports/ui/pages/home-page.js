@@ -2,6 +2,71 @@ import { Template } from 'meteor/templating';
 import { Weather } from '../../api/weather/weather.js';
 import { Meteor } from 'meteor/meteor';
 
+function totalConsumption() {
+  let t_consump = 0;
+  const w = Weather.find().fetch()[0];
+
+  for(var i = 0; i < w.devices.length; i ++)
+  {
+    let deviceTime = (w.devices[i].time)/60;
+    t_consump+= (w.devices[i].power) * deviceTime;
+  }
+  return t_consump;
+}
+
+function totalProduction() {
+  let t_prod = 0;
+  const w = Weather.find().fetch()[0];
+  const cloud_percent = parseFloat(w.clouds)/100.00;
+  const p = (1 - (0.75 * (Math.pow(cloud_percent, 3))));
+  const actual_radiation = p * parseFloat(w.radiation);
+
+  t_prod = w.areaPanel * w.absorbPanel * actual_radiation;
+  return t_prod;
+}
+
+function avgMoneyGenerated() {
+  //dollars per hour from average rate after production - consumption
+  const costPerKwh = 0.11;
+  const avgEnergyRate = costPerKwh * (totalProduction() - totalConsumption());
+  return avgEnergyRate;
+}
+
+function moneyGenerated() {
+  //dollars per hour from production
+  const costPerKwh = 0.11;
+  const posEnergyRate = costPerKwh * totalProduction();
+  return posEnergyRate;
+}
+
+function moneyConsumed() {
+  //dollars per hour from production
+  const costPerKwh = 0.11;
+  const posEnergyRate = costPerKwh * totalConsumption();
+  return posEnergyRate;
+}
+
+//create a function to update storeEnergy every minute using totalConsumption/totalProduction
+function energyTime() {
+  //this will be how many minutes of current usage left
+  let energy_left_min = 0;
+  const w = Weather.find().fetch()[0];
+  const stored = w.storedEnergy;
+  energy_left_min = stored / (totalProduction() - totalConsumption())/60.00;
+  return energy_left_min;
+}
+
+/*window.setInterval(function(){
+  let storedEnergy = 0;
+  storedEnergy += (totalProduction() - totalConsumption())/60.00;
+  const w = Weather.find().fetch()[0];
+  w.update(weather._id, {
+    $set: {storedEnergy},
+  });
+  energyTime();
+}, 60000);
+*/
+
 Template.Home_Page.helpers({
   errorClass() {
     return Template.instance().messageFlags.get(displayErrorMessages) ? 'error' : '';
@@ -18,6 +83,14 @@ Template.Home_Page.helpers({
     const w = Weather.find().fetch();
     console.log(w[0].devices);
     return w[0];
+  },
+  barRatio() {
+    const totalEnergy = totalConsumption() + totalProduction();
+    console.log('total consumption: ' + totalConsumption());
+    console.log('total production: ' + totalProduction());
+    console.log('total energy: ' + totalEnergy);
+    console.log('ratio: ' + (totalProduction()/totalEnergy)*100);
+    return (totalProduction()/totalEnergy)*100;
   },
   efficiency() {
     const w_temp = Weather.find().fetch();
@@ -36,11 +109,11 @@ Template.Home_Page.helpers({
     // get panel size from ui
     const panelSize = 8;
     const total_energy = actual_radiation*panelSize*panelEff - total_consumption;
-    console.log(cloud_percent);
-    console.log(p);
-    console.log(actual_radiation);
-    console.log(actual_radiation*panelSize*panelEff);
-    console.log(total_energy);
+    console.log('cloud: ' + cloud_percent);
+    console.log('p: ' + p);
+    console.log('actual rad: ' + actual_radiation);
+    console.log('actual rad * panel size * panel eff: '+ actual_radiation*panelSize*panelEff);
+    console.log('total energy: ' + total_energy);
     return total_energy;
   },
 });

@@ -54,9 +54,9 @@ Meteor.methods({
       const clouds = response.data.clouds.all;
       const name = response.data.name;
       const radiation = avgHourly;
-      const devices = [{ name:'Lab', power:400, time:0 },
-        { name:'Small Device', power:40, time:0 },
-        { name:'Large Device', power:250, time:0 }];
+      const devices = [{ name:'Lab', power:5000, time:0 },
+        { name:'Small Device', power:330, time:0 },
+        { name:'Large Device', power:35000, time:0 }];
       console.log(devices);
       const weather = { description, temperature, windSpeed, clouds, name, radiation, devices, radiationForecast };
       if (Weather.find().count() === 0) {
