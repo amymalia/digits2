@@ -14,22 +14,25 @@
                 <div class="nine wide column">Hours Used</div>
                 <div class="four wide column">Consumption Rate</div>
 
-                <div class="three wide column"><p>Lab</p></div>
+              {{#each device in devices}}
+                <div class="three wide column"><p>{{device.name}}</p></div>
                 <div class="nine wide column">
                     <form action="#">
                         <p class="range-field">
-                            <input type="range" id="LabSlider" min="0" max="24"/>
+                            <input type="range" id={{device.name}}-slider min="0" max="1440"/>
                         </p>
                     </form>
                 </div>
-                <div class="four wide column"><p>3kWh per hour</p></div>
-                
-                <div class="four column row">
-                    <div class="right floated column">
-                        <p>Add Device </p><a class="btn-floating btn-small waves-effect waves-light teal"
-                                             style="text-align: left"><i class="plus icon"></i></a>
-                    </div>
+                <div class="four wide column"><p>{{device.power}}W per hour</p></div>
+              {{/each}}
+
+              <div class="four column row">
+                <div class="centered column">
+                  <button class="ui basic button device-sliders" type="submit">Update</button>
+                  <p>Add Device </p><a class="btn-floating btn-small waves-effect waves-light teal"
+                                       style="text-align: left"><i class="plus icon"></i></a>
                 </div>
+              </div>
             </div>
         </div>
     </div>
