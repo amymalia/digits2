@@ -31,19 +31,18 @@ function avgMoneyGenerated() {
   const avgEnergyRate = costPerKwh * (totalProduction() - totalConsumption());
   return avgEnergyRate;
 }
-
 function moneyGenerated() {
   //dollars per hour from production
   const costPerKwh = 0.11;
   const posEnergyRate = costPerKwh * totalProduction();
-  return posEnergyRate;
+  return posEnergyRate/1000;
 }
 
 function moneyConsumed() {
   //dollars per hour from production
   const costPerKwh = 0.11;
   const posEnergyRate = costPerKwh * totalConsumption();
-  return posEnergyRate;
+  return posEnergyRate/1000;
 }
 
 //create a function to update storeEnergy every minute using totalConsumption/totalProduction
@@ -85,12 +84,18 @@ Template.Home_Page.helpers({
     return w[0];
   },
   barRatio() {
-    const totalEnergy = totalConsumption() + totalProduction();
-    console.log('total consumption: ' + totalConsumption());
-    console.log('total production: ' + totalProduction());
-    console.log('total energy: ' + totalEnergy);
-    console.log('ratio: ' + (totalProduction()/totalEnergy)*100);
-    return (totalProduction()/totalEnergy)*100;
+    if (totalProduction() === 0) {
+      return 0;
+    } else if (totalConsumption() === 0) {
+      return 100;
+    } else {
+      const totalEnergy = totalProduction() - totalConsumption();
+      console.log('total consumption: ' + totalConsumption());
+      console.log('total production: ' + totalProduction());
+      console.log('total energy: ' + totalEnergy);
+      console.log('ratio: ' + (totalProduction()/totalEnergy)*100);
+      return (totalProduction()/totalConsumption())*100;
+    }
   },
   efficiency() {
     const w_temp = Weather.find().fetch();
@@ -117,10 +122,30 @@ Template.Home_Page.helpers({
     return total_energy;
   },
   totalConsumptionHelper() {
-    return Math.round(totalConsumption()/1000);
+    const difference = Math.round((totalConsumption() - totalProduction())/1000);
+    if (difference < 0) {
+      return 0;
+    }
+    return difference;
   },
   totalProductionHelper() {
     return Math.round(totalProduction()/1000);
+  },
+  rawCost() {
+    return moneyConsumed().toFixed(2);
+  },
+  saved() {
+    if (moneyGenerated() > moneyConsumed()) {
+      return moneyConsumed().toFixed(2);
+    }
+    return moneyGenerated().toFixed(2);
+  },
+  finalCost() {
+    const difference = moneyConsumed()-moneyGenerated();
+    if (difference < 0) {
+      return 0;
+    }
+    return difference.toFixed(2);
   }
 });
 

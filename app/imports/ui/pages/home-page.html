@@ -23,8 +23,21 @@
           </div>
       </div>
       <H4> Your Energy Rate <i class="sun icon" style="color: goldenrod; text-align: center "></i></H4>
-      <a style="color:teal; float: left">{{totalProductionHelper}} kW/h Generated</a>
-      <a style="color:#ff6d00; float: right">{{totalConsumptionHelper}} kW/h Consumed</a>
+
+      <div style="margin-top: 20px;" class="ui one column centered grid container">
+      <table class="ui collapsing celled table">
+        <tbody>
+        <tr>
+          <td class="negative">Cost: ${{rawCost}}</td>
+          <td class="positive">Saved: ${{saved}}</td>
+          <td>Final: ${{finalCost}}</td>
+        </tr>
+        </tbody>
+      </table>
+      </div>
+
+      <a style="color:teal; float: left">{{totalProductionHelper}} kW/h from solar</a>
+      <a style="color:#ff6d00; float: right">{{totalConsumptionHelper}} kW/h from other source</a>
       <div class="progress" style=" background-color: #ff6d00; border-radius: 4px; padding: 8px ">
         <div class="determinate" style="width: {{barRatio}}%"></div>
       </div>
@@ -74,20 +87,5 @@
       {{>Electric_Consumption_Page}}
     </div>
   </div>
-  <div class="row">
-    <div class="col s6">
-      <div class="ui list">
-        <div class="item">Location is: {{weather.name}}</div>
-        <div class="item">Weather is: {{weather.description}}</div>
-        <div class="item">Temperature is: {{weather.temperature}}K</div>
-        <div class="item">Cloud coverage is: {{weather.clouds}}%</div>
-        <div class="item">Wind speed is: {{weather.windSpeed}}m/s</div>
-        <div class="item">Efficiency is: {{efficiency}}W/m</div>
-        <div class="item">Panel Area is: {{weather.areaPanel}}m^2</div>
-        <div class="item">Panel Absorption is: {{weather.absorbPanel}}%</div>
-        <div class="item">Stored Energy is: {{weather.storedEnergy}}W</div>
-        <div class="item">Devices are: {{weather.devices}}</div>
-      </div>
-    </div>
-  </div>
+
 </template>
