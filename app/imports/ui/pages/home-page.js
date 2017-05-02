@@ -35,14 +35,14 @@ function moneyGenerated() {
   //dollars per hour from production
   const costPerKwh = 0.11;
   const posEnergyRate = costPerKwh * totalProduction();
-  return posEnergyRate/1000;
+  return (posEnergyRate)/1000;
 }
 
 function moneyConsumed() {
   //dollars per hour from production
   const costPerKwh = 0.11;
   const posEnergyRate = costPerKwh * totalConsumption();
-  return posEnergyRate/1000;
+  return (posEnergyRate)/1000;
 }
 
 //create a function to update storeEnergy every minute using totalConsumption/totalProduction

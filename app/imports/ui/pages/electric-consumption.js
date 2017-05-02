@@ -97,6 +97,10 @@ Template.Electric_Consumption_Page.helpers({
     }
     return difference.toFixed(2);
   },
+  getTime(device) {
+    console.log('Time is ' + device.time);
+    return device.time;
+  },
   hours(minutes) {
     const hours = Math.floor(minutes/60);
     const min = minutes - (60 * hours);
