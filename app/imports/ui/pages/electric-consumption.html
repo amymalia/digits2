@@ -19,7 +19,7 @@
                 <div class="nine wide column">
                     <form action="#">
                         <p class="range-field">
-                            <input type="range" id={{device.name}}-slider min="0" max="1440" value="{{getTime device}}"/>
+                            <input class="device-sliders" type="range" id={{device.name}}-slider min="0" max="1440" value="{{getTime device}}"/>
                         </p>
                     </form>
                 </div>
@@ -29,7 +29,6 @@
               <div class="four column row">
                 <div class="centered column">
                   <div class="ui basic buttons">
-                    <button class="ui basic button device-sliders" type="submit">Update</button>
                     <button class="ui basic button device-sliders" type="submit">Add new device</button>
                   </div>
                 </div>

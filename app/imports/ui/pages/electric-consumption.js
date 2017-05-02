@@ -109,7 +109,7 @@ Template.Electric_Consumption_Page.helpers({
 });
 
 Template.Electric_Consumption_Page.events({
-  'click .device-sliders'(event, instance) {
+  'input .device-sliders'(event, instance) {
     event.preventDefault();
     // Get name (text field)
     const weathers = Weather.find().fetch();
