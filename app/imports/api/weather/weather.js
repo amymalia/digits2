@@ -17,6 +17,8 @@ class WeatherCollection extends BaseCollection {
    */
   constructor() {
     super('Weather', new SimpleSchema({
+      latitude: { type: Number, optional: false },
+      longitude: { type: Number, optional: false },
       description: { type: String, optional: false },
       temperature: { type: String, optional: false },
       windSpeed: { type: String, optional: false },
@@ -42,9 +44,9 @@ class WeatherCollection extends BaseCollection {
    * @throws {Meteor.Error} If the interest definition includes a defined name.
    * @returns The newly created docID.
    */
-  define({ description, temperature, windSpeed, clouds, name, radiation, areaPanel = 0, absorbPanel = 0, storedEnergy = 0, devices = [{ name:'Lab', power:5000, time:0 }, { name:'Small Device', power:330, time:0 }, { name:'Large Device', power:35000, time:0 }], radiationForecast = [] }) {
+  define({ latitude, longitude, description, temperature, windSpeed, clouds, name, radiation, areaPanel = 0, absorbPanel = 0, storedEnergy = 0, devices = [{ name:'Lab', power:5000, time:0 }, { name:'Small Device', power:330, time:0 }, { name:'Large Device', power:35000, time:0 }], radiationForecast = [] }) {
     console.log(devices);
-    return this._collection.insert({ description, temperature, windSpeed, clouds, name, radiation, areaPanel, absorbPanel, storedEnergy, devices, radiationForecast });
+    return this._collection.insert({ latitude, longitude, description, temperature, windSpeed, clouds, name, radiation, areaPanel, absorbPanel, storedEnergy, devices, radiationForecast });
   }
 
   /**

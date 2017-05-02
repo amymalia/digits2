@@ -51,10 +51,10 @@
               <div class="col s12">
                 <form class="location-data">
                   <p>Latitude</p>
-                  <input placeholder="degrees" id="latInput" type="text" class="validate">
+                  <input placeholder="degrees" id="latInput" type="text" class="validate" value="{{weather.latitude}}">
 
                   <p>Longitude</p>
-                  <input placeholder="degrees" id="longInput" type="text" class="validate">
+                  <input placeholder="degrees" id="longInput" type="text" class="validate" value="{{weather.longitude}}">
 
                   <button class="ui button" type="submit">Submit</button>
                 </form>
@@ -71,10 +71,10 @@
               <div class="col s12">
                 <form class="panel-data">
                   <p>Total Solar Panel Area</p>
-                  <input placeholder="m^2" id="panelAreaInput" type="text" class="validate">
+                  <input placeholder="m^2" id="panelAreaInput" type="text" class="validate" value="{{weather.areaPanel}}">
 
                   <p>Panel Absorption Index</p>
-                  <input placeholder="%" id="panelAbsorbInput" type="text" class="validate">
+                  <input placeholder="%" id="panelAbsorbInput" type="text" class="validate" value="{{weather.absorbPanel}}">
 
                   <button class="ui button" type="submit">Submit</button>
                 </form>

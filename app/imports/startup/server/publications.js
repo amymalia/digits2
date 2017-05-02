@@ -58,14 +58,14 @@ Meteor.methods({
         { name:'Small Device', power:330, time:0 },
         { name:'Large Device', power:35000, time:0 }];
       console.log(devices);
-      const weather = { description, temperature, windSpeed, clouds, name, radiation, devices, radiationForecast };
+      const weather = { latitude, longitude, description, temperature, windSpeed, clouds, name, radiation, devices, radiationForecast };
       if (Weather.find().count() === 0) {
         Weather.define(weather);
       } else {
         const weathers = Weather.find().fetch();
         const weather = weathers[0];
         Weather.update(weather._id, {
-          $set: { description, temperature, windSpeed, clouds, name, radiation, devices, radiationForecast },
+          $set: { latitude, longitude, description, temperature, windSpeed, clouds, name, radiation, devices, radiationForecast },
         });
       }
       return weather;
