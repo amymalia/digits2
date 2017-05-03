@@ -17,7 +17,7 @@ Meteor.methods({
     try {
       const response = HTTP.get(`http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&APPID=66d972806c94c7fdec001883887e3556`);
       const responseRadiation = HTTP.get(`https://developer.nrel.gov/api/pvwatts/v5.json?api_key=AlyMNtdT59V5xJq0rG52mYVUjPMf2uuLIQi7ScRI&lat=${latitude}&lon=${longitude}&system_capacity=4&azimuth=180&tilt=40&array_type=1&module_type=1&losses=10&timeframe=hourly`);
-      const responseCloudFore = HTTP.get(`http://api.openweathermap.org/data/2.5/forecast/daily?lat=${latitude}&lon=${longitude}&cnt=10&appid=b1b15e88fa797225412429c1c50c122a1`);
+      const responseCloud = HTTP.get(`http://api.openweathermap.org/data/2.5/forecast/daily?lat=${latitude}&lon=${longitude}&cnt=6&appid=88d03a4d7244e5109c19a4f7c52e4ff3`);
       const radiationArray = responseRadiation.data.outputs.dn;
       const today = new Date();
       const first = new Date(today.getFullYear(), 0, 1);
@@ -28,6 +28,7 @@ Meteor.methods({
       //const for 6 days ahead
       let radiationForecast = [0,0,0,0,0,0];
 
+      //total radiation per day for next 6 days
       for (var j = 0; j < 6; j++) {
         for (var k = 0; k < 24; k++) {
           radiationForecast[j] += radiationArray[((theDay + j + 1) * 24) + k];
@@ -36,6 +37,7 @@ Meteor.methods({
         radiationForecast[j] = Math.round((radiationForecast[j]));
       }
 
+      //gets average at hour across 40 days
       let avgHourly = radiationArray[index];
       for(var i = 0; i < 480; i += 24)
       {
@@ -47,8 +49,16 @@ Meteor.methods({
       }
 
       console.log('Radiation Forecast' + radiationForecast);
-
       console.log(radiationArray[index]);
+
+      //average cloud coverage for the day for 6 days
+      let cloudForeCast = [0, 0, 0, 0, 0, 0];
+      for(var i = 0; i < 6; i++)
+      {
+          cloudForeCast[i] = responseCloud.data.list[i].clouds
+      }
+      console.log('Cloud Forecast ' + cloudForeCast);
+
       const description = response.data.weather[0].description;
       const temperature = response.data.main.temp;
       const windSpeed = response.data.wind.speed;
@@ -59,14 +69,14 @@ Meteor.methods({
         { name:'Small Device', power:330, time:0 },
         { name:'Large Device', power:35000, time:0 }];
       console.log(devices);
-      const weather = { latitude, longitude, description, temperature, windSpeed, clouds, name, radiation, devices, radiationForecast };
+      const weather = { latitude, longitude, description, temperature, windSpeed, clouds, name, radiation, devices, radiationForecast, cloudForecast };
       if (Weather.find().count() === 0) {
         Weather.define(weather);
       } else {
         const weathers = Weather.find().fetch();
         const weather = weathers[0];
         Weather.update(weather._id, {
-          $set: { latitude, longitude, description, temperature, windSpeed, clouds, name, radiation, devices, radiationForecast },
+          $set: { latitude, longitude, description, temperature, windSpeed, clouds, name, radiation, devices, radiationForecast, cloudForecast },
         });
       }
       return weather;
