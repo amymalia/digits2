@@ -31,8 +31,8 @@ Meteor.methods({
         for (var k = 0; k < 24; k++) {
           radiationForecast[j] += radiationArray[((theDay + j + 1) * 24) + k];
         }
-        console.log('Radiation Forecast j ' + (radiationForecast[j]/24));
-        radiationForecast[j] = Math.round((radiationForecast[j]/24));
+        console.log('Radiation Forecast j ' + (radiationForecast[j]));
+        radiationForecast[j] = Math.round((radiationForecast[j]));
       }
 
       let avgHourly = radiationArray[index];
