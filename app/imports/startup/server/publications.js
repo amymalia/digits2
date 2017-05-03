@@ -18,6 +18,7 @@ Meteor.methods({
     try {
       const response = HTTP.get(`http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&APPID=66d972806c94c7fdec001883887e3556`);
       const responseRadiation = HTTP.get(`https://developer.nrel.gov/api/pvwatts/v5.json?api_key=AlyMNtdT59V5xJq0rG52mYVUjPMf2uuLIQi7ScRI&lat=${latitude}&lon=${longitude}&system_capacity=4&azimuth=180&tilt=40&array_type=1&module_type=1&losses=10&timeframe=hourly`);
+      const responseCloudFore = HTTP.get('http://samples.openweathermap.org/data/2.5/forecast/daily?${latitude}=35&${longitude}=139&cnt=10&appid=b1b15e88fa797225412429c1c50c122a1');
       const radiation = responseRadiation.data.outputs.dn;
       const today = new Date();
       const first = new Date(today.getFullYear(), 0, 1);
@@ -26,15 +27,15 @@ Meteor.methods({
       const n = d.getHours();
       const index = (theDay * 24) + n;
       //const for 6 days ahead
-      const radiationForecast = [];
-
+      let radiationForecast = [];
+      //populate radiationForecast
       for (var j = 0; j < 6; j++) {
           for (var k = 0; k < 24; k++) {
               radiationForecast[j] += radiation[((theDay + j + 1) * 24) + k];
           }
       }
 
-
+      //calculate average hourly solar radiation
       let avgHourly = radiation[index];
       for(var i = 0; i < 480; i += 24)
       {
@@ -44,6 +45,13 @@ Meteor.methods({
       {
           avgHourly += radiation[index - i];
       }
+
+      //cloud forecast
+      let cloud_ForeCastArr = [0, 0, 0, 0, 0, 0];
+      for(var i = 0; i < 6; i++)
+      {
+        cloud_ForeCastArr[i] = response.data.list[i].clouds
+      }
       console.log(radiation[index]);
       const weather = {
         description: response.data.weather[0].description,
@@ -52,7 +60,9 @@ Meteor.methods({
         clouds: response.data.clouds.all,
         name: response.data.name,
         radiation: avgHourly,
-        dayRadiationForecast:  radiationForecast;
+        radiationForecast:  radiationForecast,
+        cloudsForecast: cloud_ForeCastArr,
+
       };
       Weather.remove({});
       Weather.insert(weather);

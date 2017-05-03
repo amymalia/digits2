@@ -50,6 +50,12 @@ function moneyConsumed() {
     return posEnergyRate;
 }
 
+function expectedEnergyRate() {
+    //days are the expected next days so tomorrow is day = 1
+    const w = Weather.find().fetch()[0];
+
+}
+
 //create a function to update storeEnergy every minute using totalConsumption/totalProduction
 function energyTime() {
   //this will be how many minutes of current usage left
