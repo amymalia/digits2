@@ -1,6 +1,8 @@
 import { Template } from 'meteor/templating';
 import { Weather } from '../../api/weather/weather.js';
 import { Meteor } from 'meteor/meteor';
+import { Chart } from 'chart.js';
+
 
 function totalConsumption() {
   let t_consump = 0;

@@ -1,5 +1,6 @@
 <template name="Home_Page">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+  <script src="Chart.js"></script>
 
   <div class="ui one column centered grid container">
     <div class="ui center aligned compact segment" style="margin-top:100px; margin-bottom: 100px;">
@@ -12,12 +13,12 @@
                       <div class="item" style="color: teal">Tomorrow</div>
                       <li class="divider"></li>
                       <div class="item"><i class="lightning icon" style="color: #ff6d00"> 200</i>  </div>
-                      <div class="item sty"><i class="dollar icon" style="color: #ff6d00"> 40</i>  </div>
+                      <div class="item"><i class="dollar icon" style="color: #ff6d00"> 40</i>  </div>
 
                       <div class="item" style="color: teal">Next Day</div>
                       <li class="divider"></li>
                       <div class="item"><i class="lightning icon" style="color: #ff6d00"> 450</i>  </div>
-                      <div class="item sty"><i class="dollar icon" style="color: #ff6d00"> 35</i>  </div>
+                      <div class="item"><i class="dollar icon" style="color: #ff6d00"> 35</i>  </div>
                   </div>
               </div>
           </div>
@@ -35,6 +36,43 @@
         </tbody>
       </table>
       </div>
+
+      <canvas id="myChart" width="400" height="400"></canvas>
+      <script>
+        var ctx = document.getElementById("myChart");
+        var data = {
+          labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+          datasets: [
+            {
+              label: "Solar Energy Generated",
+              fill: false,
+              lineTension: 0.5,
+              backgroundColor: "rgba(75,192,192,0.4)",
+              borderColor: "rgba(75,192,192,1)",
+              borderCapStyle: 'butt',
+              borderDash: [],
+              borderDashOffset: 0.0,
+              borderJoinStyle: 'miter',
+              pointBorderColor: "rgba(75,192,192,1)",
+              pointBackgroundColor: "#fff",
+              pointBorderWidth: 1,
+              pointHoverRadius: 5,
+              pointHoverBackgroundColor: "rgba(75,192,192,1)",
+              pointHoverBorderColor: "rgba(220,220,220,1)",
+              pointHoverBorderWidth: 2,
+              pointRadius: 1,
+              pointHitRadius: 10,
+              data: [65, 59, 80, 81, 56, 55, 40],
+              spanGaps: false,
+            }
+          ]
+        };
+        var myLineChart = new Chart(ctx, {
+          type: 'line',
+          data: data,
+        });
+      </script>
+
 
       <a style="color:teal; float: left">{{totalProductionHelper}} kW/h from solar</a>
       <a style="color:#ff6d00; float: right">{{totalConsumptionHelper}} kW/h from other source</a>
