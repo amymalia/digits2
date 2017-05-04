@@ -18,6 +18,7 @@ Meteor.methods({
       const response = HTTP.get(`http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&APPID=66d972806c94c7fdec001883887e3556`);
       const responseRadiation = HTTP.get(`https://developer.nrel.gov/api/pvwatts/v5.json?api_key=AlyMNtdT59V5xJq0rG52mYVUjPMf2uuLIQi7ScRI&lat=${latitude}&lon=${longitude}&system_capacity=4&azimuth=180&tilt=40&array_type=1&module_type=1&losses=10&timeframe=hourly`);
       const responseCloud = HTTP.get(`http://api.openweathermap.org/data/2.5/forecast/daily?lat=${latitude}&lon=${longitude}&cnt=6&appid=88d03a4d7244e5109c19a4f7c52e4ff3`);
+      const hourlyCloud = HTTP.get(`api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=88d03a4d7244e5109c19a4f7c52e4ff3`);
       const radiationArray = responseRadiation.data.outputs.dn;
       const today = new Date();
       const first = new Date(today.getFullYear(), 0, 1);
