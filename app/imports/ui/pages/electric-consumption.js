@@ -64,7 +64,7 @@ Template.Electric_Consumption_Page.helpers({
       if (device.time[i] !== 0) {
         buttons += `<button id="${device.name}-${i}" class="ui teal button time">${i}</button> `;
       } else {
-        buttons += `<button id="${device.name}-${i}" class="ui small compact basic button time">${i}</button> `;
+        buttons += `<button id="${device.name}-${i}" class="ui small compact basic grey button time">${i}</button> `;
       }
     }
     return buttons;
@@ -90,14 +90,12 @@ Template.Electric_Consumption_Page.helpers({
     }
     return difference.toFixed(2);
   },
-  getTime(device) {
-    console.log('Time is ' + device.time);
-    return device.time;
-  },
-  hours(minutes) {
-    const hours = Math.floor(minutes / 60);
-    const min = minutes - (60 * hours);
-    return `${hours} hours and ${min} minutes`;
+  hours(device) {
+    let hours = 0;
+    for (let i = 0; i < device.time.length; i++) {
+      hours += device.time[i];
+    }
+    return `${hours} hours`;
   },
 });
 
