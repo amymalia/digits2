@@ -208,6 +208,12 @@ Template.Home_Page.helpers({
       return 0;
     }
     return difference.toFixed(2);
+  },
+  productionGraphHelper() {
+    return productionGraph();
+  },
+  consumptionGraphHelper() {
+    return consumptionGraph();
   }
 });
 
