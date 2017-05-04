@@ -31,7 +31,7 @@ class WeatherCollection extends BaseCollection {
       devices: { type: [Object], optional: true, blackbox: true },
       radiationForecast: { type: [Number], optional: true },
       cloudForecast: { type: [Number], optional: true },
-      //hourlyClouds: { type: [Object], optional: true, blackbox: true },
+      hourlyClouds: { type: [Object], optional: true, blackbox: true },
     }));
   }
 
@@ -46,9 +46,9 @@ class WeatherCollection extends BaseCollection {
    * @throws {Meteor.Error} If the interest definition includes a defined name.
    * @returns The newly created docID.
    */
-  define({ latitude, longitude, description, temperature, windSpeed, clouds, name, radiation, areaPanel = 0, absorbPanel = 0, storedEnergy = 0, devices = [{ name:'Lab', power:5000, time:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] }, { name:'Small Device', power:330, time:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] }, { name:'Large Device', power:35000, time:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] }], radiationForecast = [], cloudForecast = []}) {
+  define({ latitude, longitude, description, temperature, windSpeed, clouds, name, radiation, areaPanel = 0, absorbPanel = 0, storedEnergy = 0, devices = [{ name:'Lab', power:5000, time:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] }, { name:'Small Device', power:330, time:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] }, { name:'Large Device', power:35000, time:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] }], radiationForecast = [], cloudForecast = [], hourlyClouds = [] }) {
     console.log(devices);
-    return this._collection.insert({ latitude, longitude, description, temperature, windSpeed, clouds, name, radiation, areaPanel, absorbPanel, storedEnergy, devices, radiationForecast, cloudForecast});
+    return this._collection.insert({ latitude, longitude, description, temperature, windSpeed, clouds, name, radiation, areaPanel, absorbPanel, storedEnergy, devices, radiationForecast, cloudForecast, hourlyClouds });
   }
 
   /**
