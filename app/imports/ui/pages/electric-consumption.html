@@ -12,7 +12,7 @@
                 {{#each device in devices}}
                 <div class="ui basic segment">
                       <div style="margin-top:17px" class="ui small compact buttons device-time">
-                        <div style="margin-right: 15px;" class="ui top right attached label">{{hours (device.time)}}</div>
+                        <div style="margin-right: 15px;" class="ui top right attached label">{{hours device}}</div>
                         <div style="margin-left: 15px;" class="ui top left attached label">{{device.name}} ({{device.power}}W/h) </div>
                         {{{deviceButtons device}}}
 
