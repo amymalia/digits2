@@ -28,6 +28,69 @@ function hourlyProduction() {
   return t_prod;
 }
 
+function batteryGraph() {
+  let prodArr = productionGraph();
+  let conArr = consumptionGraph();
+  let batArr = [];
+  const w = Weather.find().fetch()[0];
+  let battery = parseFloat(w.storedEnergy);
+
+  for(let i = 0; i < 24; i++)
+  {
+    batArr[i] = 0;
+  }
+
+  for(let i = 0; i < 24; i++)
+  {
+    if(prodArr[i] > conArr[i])
+    {
+      if(battery >= parseFloat(w.battery))
+      {
+        console.log('sell back to grid');
+        batArr[i] = prodArr[i] + battery;
+      }
+      else
+      {
+        battery += prodArr[i] - conArr[i];
+        if(battery >= parseFloat(w.battery))
+        {
+          battery = parseFloat(w.battery);
+        }
+        batArr[i] = prodArr[i] + battery;
+
+        let storedEnergy = battery;
+        Weather.update(weather._id, {
+            $set: { storedEnergy },
+        });
+      }
+
+    }
+    else
+    {
+      if( battery <= 0)
+      {
+        batArr[i] = prodArr[i];
+      }
+      else
+      {
+        battery += prodArr[i] - conArr[i];
+        if(battery <= 0)
+        {
+          battery = 0;
+        }
+        batArr[i] = prodArr[i] + battery;
+
+        let storedEnergy = battery;
+        Weather.update(weather._id, {
+            $set: { storedEnergy },
+        });
+      }
+    }
+  }
+  return batArr;
+
+}
+
 function productionGraph() {
   let prodArr = [];
   const w = Weather.find().fetch()[0];
@@ -38,7 +101,7 @@ function productionGraph() {
     for(let j = i*3; j < i*3 + 3; j++)
     {
         //diving by 1000 to give KWH
-        prodArr[j] = parseFloat(w.hourlyRadiation[j]) * p/1000.00;
+        prodArr[j] = parseFloat(w.hourlyRadiation[j]) * p/1000.00 * w.areaPanel * w.absorbPanel;
     }
 
   }

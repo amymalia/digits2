@@ -27,7 +27,7 @@ class WeatherCollection extends BaseCollection {
       radiation: { type: String, optional: false },
       areaPanel: { type: String, optional: true },
       absorbPanel: { type: String, optional: true },
-      storedEnergy: { type: String, optional: true },
+      storedEnergy: { type: Number, optional: true },
       devices: { type: [Object], optional: true, blackbox: true },
       radiationForecast: { type: [Number], optional: true },
       cloudForecast: { type: [Number], optional: true },
