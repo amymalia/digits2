@@ -18,7 +18,7 @@ Meteor.methods({
       const response = HTTP.get(`http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&APPID=66d972806c94c7fdec001883887e3556`);
       const responseRadiation = HTTP.get(`https://developer.nrel.gov/api/pvwatts/v5.json?api_key=AlyMNtdT59V5xJq0rG52mYVUjPMf2uuLIQi7ScRI&lat=${latitude}&lon=${longitude}&system_capacity=4&azimuth=180&tilt=40&array_type=1&module_type=1&losses=10&timeframe=hourly`);
       const responseCloud = HTTP.get(`http://api.openweathermap.org/data/2.5/forecast/daily?lat=${latitude}&lon=${longitude}&cnt=6&appid=88d03a4d7244e5109c19a4f7c52e4ff3`);
-      const hourlyCloud = HTTP.get(`api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=88d03a4d7244e5109c19a4f7c52e4ff3`);
+      const responseHourlyCloud = HTTP.get(`api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=87b31365cfb97843b11097922667529f`);
       const radiationArray = responseRadiation.data.outputs.dn;
       const today = new Date();
       const first = new Date(today.getFullYear(), 0, 1);
@@ -62,20 +62,32 @@ Meteor.methods({
       }
       console.log('Cloud Forecast ' + cloudForecast);
 
+
+      //cloud coverage for every 3 hours for 24 hours
+      let hourlyClouds = [];
+      for( let i = 0; i < 8; i++)
+      {
+        let cTime = responseHourlyCloud.data.list[i].dt_txt;
+        console.log(cTime);
+        hourlyClouds[i] = {time: cTime.substr(cTime.length - 8, cTime.length - 6), clouds: responseHourlyCloud.data.list[i].clouds.all};
+      }
+      console.log('hourly cloud: ' + hourlyClouds);
+
+
       const description = response.data.weather[0].description;
       const temperature = response.data.main.temp;
       const windSpeed = response.data.wind.speed;
       const clouds = response.data.clouds.all;
       const name = response.data.name;
       const radiation = avgHourly;
-      const weather = { latitude, longitude, description, temperature, windSpeed, clouds, name, radiation, radiationForecast, cloudForecast };
+      const weather = { latitude, longitude, description, temperature, windSpeed, clouds, name, radiation, radiationForecast, cloudForecast};
       if (Weather.find().count() === 0) {
         Weather.define(weather);
       } else {
         const weathers = Weather.find().fetch();
         const weather = weathers[0];
         Weather.update(weather._id, {
-          $set: { latitude, longitude, description, temperature, windSpeed, clouds, name, radiation, devices, radiationForecast, cloudForecast },
+          $set: { latitude, longitude, description, temperature, windSpeed, clouds, name, radiation, devices, radiationForecast, cloudForecast}
         });
       }
       return weather;
