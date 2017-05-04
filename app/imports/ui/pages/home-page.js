@@ -33,7 +33,7 @@ function batteryGraph() {
   let conArr = consumptionGraph();
   let batArr = [];
   const w = Weather.find().fetch()[0];
-  const battery = parseFloat(w.storedEnergy);
+  let battery = parseFloat(w.storedEnergy);
 
   for(let i = 0; i < 24; i++)
   {
