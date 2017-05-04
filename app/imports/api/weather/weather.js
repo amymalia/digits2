@@ -32,7 +32,7 @@ class WeatherCollection extends BaseCollection {
       radiationForecast: { type: [Number], optional: true },
       cloudForecast: { type: [Number], optional: true },
       hourlyClouds: { type: [Object], optional: true, blackbox: true },
-      hourlyRadiation: { type: [Number], optional: true },
+      hourlyRadiation: { type: [String], optional: true },
     }));
   }
 

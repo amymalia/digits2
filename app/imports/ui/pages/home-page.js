@@ -27,6 +27,63 @@ function hourlyProduction() {
   return t_prod;
 }
 
+function productionGraph() {
+  let prodArr = [];
+  const w = Weather.find().fetch()[0];
+  for(let i = 0; i < 8; i++)
+  {
+    let cloud_percent = parseFloat(w.hourlyClouds[i].clouds)/100.00;
+    let p = (1 - (0.75 * (Math.pow(cloud_percent, 3))));
+    for(let j = i*3; j < i*3 + 3; j++)
+    {
+        //diving by 1000 to give KWH
+        prodArr[j] = parseFloat(w.hourlyRadiation[j]) * p/1000.00;
+    }
+
+  }
+  return prodArr;
+}
+
+function consumptionGraph() {
+  let conArr = [];
+  const w = Weather.find().fetch()[0];
+
+  for(let i = 0; i < w.devices.length; i++)
+  {
+    for(let j = 0; j < 24; j++)
+    {
+      if(w.devices[i].time[j] != 0)
+      {
+        //converting to KWH
+        conArr[j] += w.devices[i].power/1000.00;
+      }
+
+    }
+  }
+  const firstHour = parseInt(w.hourlyClouds[0].time);
+  reorder(conArr, firstHour);
+}
+
+function reorder(Arr, firstHour)
+{
+  let offset = firstHour;
+  let lastInd = (Arr.length - 1) - offset;
+  let finalArr = [];
+
+  for(let i = 0, j = offset; i < 24; i++, j++)
+  {
+    if(j > lastInd)
+    {
+      finalArr[i] = Arr[j];
+    }
+    else
+    {
+      finalArr[i] = Arr[j - 24];
+    }
+  }
+  return finalArr;
+}
+
 function avgMoneyGenerated() {
   //dollars per hour from average rate after production - consumption
   const costPerKwh = 0.11;
