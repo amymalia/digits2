@@ -12,6 +12,14 @@ $(document).ready(function () {
 
 });
 
+
+Template.Electric_Consumption_Page.onRendered(function onRendered() {
+  this.$('.devices').popup({
+    on: 'click'
+  });
+});
+
+
 function totalConsumption() {
   let t_consump = 0;
   const w = Weather.find().fetch()[0];

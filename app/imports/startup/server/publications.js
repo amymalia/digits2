@@ -74,7 +74,7 @@ Meteor.methods({
         const weathers = Weather.find().fetch();
         const weather = weathers[0];
         Weather.update(weather._id, {
-          $set: { latitude, longitude, description, temperature, windSpeed, clouds, name, radiation, devices, radiationForecast, cloudForecast },
+          $set: { latitude, longitude, description, temperature, windSpeed, clouds, name, radiation, devices, radiationForecast, cloudForecast }
         });
       }
       return weather;
