@@ -52,12 +52,13 @@ Meteor.methods({
       console.log(radiationArray[index]);
 
       //average cloud coverage for the day for 6 days
-      let cloudForeCast = [0, 0, 0, 0, 0, 0];
+      let cloudForecast = [0, 0, 0, 0, 0, 0];
       for(var i = 0; i < 6; i++)
       {
-          cloudForeCast[i] = responseCloud.data.list[i].clouds
+          console.log(responseCloud.data.list[i].clouds);
+          cloudForecast[i] = responseCloud.data.list[i].clouds;
       }
-      console.log('Cloud Forecast ' + cloudForeCast);
+      console.log('Cloud Forecast ' + cloudForecast);
 
       const description = response.data.weather[0].description;
       const temperature = response.data.main.temp;
