@@ -4,7 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import { Chart } from 'chart.js';
 
 
-function totalConsumption() {
+function hourlyConsumption() {
   let t_consump = 0;
   const w = Weather.find().fetch()[0];
 
@@ -16,7 +16,7 @@ function totalConsumption() {
   return t_consump;
 }
 
-function totalProduction() {
+function hourlyProduction() {
   let t_prod = 0;
   const w = Weather.find().fetch()[0];
   const cloud_percent = parseFloat(w.clouds)/100.00;
@@ -30,20 +30,20 @@ function totalProduction() {
 function avgMoneyGenerated() {
   //dollars per hour from average rate after production - consumption
   const costPerKwh = 0.11;
-  const avgEnergyRate = costPerKwh * (totalProduction() - totalConsumption());
+  const avgEnergyRate = costPerKwh * (hourlyProduction() - hourlyConsumption());
   return avgEnergyRate;
 }
 function moneyGenerated() {
   //dollars per hour from production
   const costPerKwh = 0.11;
-  const posEnergyRate = costPerKwh * totalProduction();
+  const posEnergyRate = costPerKwh * hourlyProduction();
   return (posEnergyRate)/1000;
 }
 
 function moneyConsumed() {
   //dollars per hour from production
   const costPerKwh = 0.11;
-  const posEnergyRate = costPerKwh * totalConsumption();
+  const posEnergyRate = costPerKwh * hourlyConsumption();
   return (posEnergyRate)/1000;
 }
 
@@ -53,7 +53,7 @@ function energyTime() {
   let energy_left_min = 0;
   const w = Weather.find().fetch()[0];
   const stored = w.storedEnergy;
-  energy_left_min = stored / (totalProduction() - totalConsumption())/60.00;
+  energy_left_min = stored / (hourlyProduction() - hourlyConsumption())/60.00;
   return energy_left_min;
 }
 
@@ -86,17 +86,17 @@ Template.Home_Page.helpers({
     return w[0];
   },
   barRatio() {
-    if (totalProduction() === 0) {
+    if (hourlyProduction() === 0) {
       return 0;
     } else if (totalConsumption() === 0) {
       return 100;
     } else {
-      const totalEnergy = totalProduction() - totalConsumption();
-      console.log('total consumption: ' + totalConsumption());
-      console.log('total production: ' + totalProduction());
+      const totalEnergy = hourlyProduction() - hourlyConsumption();
+      console.log('total consumption: ' + hourlyConsumption());
+      console.log('total production: ' + hourlyProduction());
       console.log('total energy: ' + totalEnergy);
-      console.log('ratio: ' + (totalProduction()/totalEnergy)*100);
-      return (totalProduction()/totalConsumption())*100;
+      console.log('ratio: ' + (hourlyProduction()/totalEnergy)*100);
+      return (hourlyProduction()/hourlyConsumption())*100;
     }
   },
   efficiency() {
@@ -124,14 +124,14 @@ Template.Home_Page.helpers({
     return total_energy;
   },
   totalConsumptionHelper() {
-    const difference = Math.round((totalConsumption() - totalProduction())/1000);
+    const difference = Math.round((hourlyConsumption() - hourlyProduction())/1000);
     if (difference < 0) {
       return 0;
     }
     return difference;
   },
-  totalProductionHelper() {
-    return Math.round(totalProduction()/1000);
+  hourlyProductionHelper() {
+    return Math.round(hourlyProduction()/1000);
   },
   rawCost() {
     return moneyConsumed().toFixed(2);
