@@ -32,6 +32,8 @@ class WeatherCollection extends BaseCollection {
       radiationForecast: { type: [Number], optional: true },
       cloudForecast: { type: [Number], optional: true },
       battery: { type: String, optional: true },
+      hourlyClouds: { type: [Object], optional: true, blackbox: true },
+      hourlyRadiation: { type: [String], optional: true },
     }));
   }
 
@@ -48,8 +50,8 @@ class WeatherCollection extends BaseCollection {
    */
   define({ latitude, longitude, description, temperature, windSpeed, clouds, name, radiation, areaPanel = 0, absorbPanel = 0, storedEnergy = 0, devices = [{ name:'Lab', power:5000, time:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] },
     { name:'Small Device', power:330, time:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] },
-    { name:'Large Device', power:35000, time:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] }], radiationForecast = [], cloudForecast = [], battery = 0}) {
-    return this._collection.insert({ latitude, longitude, description, temperature, windSpeed, clouds, name, radiation, areaPanel, absorbPanel, storedEnergy, devices, radiationForecast, cloudForecast, battery });
+    { name:'Large Device', power:35000, time:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] }], radiationForecast = [], cloudForecast = [], battery = 0, hourlyClouds = [], hourlyRadiation = []}) {
+    return this._collection.insert({ latitude, longitude, description, temperature, windSpeed, clouds, name, radiation, areaPanel, absorbPanel, storedEnergy, devices, radiationForecast, cloudForecast, battery, hourlyClouds, hourlyRadiation });
   }
 
   /**
