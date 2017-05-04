@@ -8,7 +8,6 @@ import { check } from 'meteor/check';
 
 Weather.publish();
 
-
 Meteor.methods({
   checkWeather(latitude, longitude) {
     check(latitude, String);
@@ -49,9 +48,16 @@ Meteor.methods({
       {
         avgHourly += radiationArray[index - i];
       }
+      avgHourly = avgHourly/40;
 
-      console.log('Radiation Forecast' + radiationForecast);
-      console.log(radiationArray[index]);
+      //hourly radiation
+      let hourlyRadiation = [];
+      for(let i = 0; i < 24; i++)
+      {
+
+      }
+      //console.log('Radiation Forecast' + radiationForecast);
+      //console.log(radiationArray[index]);
 
       //average cloud coverage for the day for 6 days
       let cloudForecast = [0, 0, 0, 0, 0, 0];
@@ -69,7 +75,7 @@ Meteor.methods({
       {
         let cTime = responseHourlyCloud.data.list[i].dt_txt;
         console.log(cTime);
-        hourlyClouds[i] = {time: cTime.substr(cTime.length - 8, cTime.length - 6), clouds: responseHourlyCloud.data.list[i].clouds.all};
+        hourlyClouds[i] = {time: cTime.substring(cTime.length - 8, cTime.length - 6), clouds: responseHourlyCloud.data.list[i].clouds.all};
       }
       console.log('hourly cloud: ' + hourlyClouds);
 
@@ -87,7 +93,7 @@ Meteor.methods({
         const weathers = Weather.find().fetch();
         const weather = weathers[0];
         Weather.update(weather._id, {
-          $set: { latitude, longitude, description, temperature, windSpeed, clouds, name, radiation, devices, radiationForecast, cloudForecast, hourlyClouds}
+          $set: { latitude, longitude, description, temperature, windSpeed, clouds, name, radiation, devices, radiationForecast, cloudForecast, hourlyClouds},
         });
       }
       return weather;
