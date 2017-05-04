@@ -82,7 +82,7 @@
               spanGaps: false,
             },
             {
-              label: "Solar Energy Generated",
+              label: "Your Energy Usage",
               fill: false,
               lineTension: 0.5,
               backgroundColor: "rgba(128,0,0,0.4)",
@@ -151,6 +151,9 @@
 
                   <p>Panel Absorption Index</p>
                   <input placeholder="%" id="panelAbsorbInput" type="text" class="validate" value="{{weather.absorbPanel}}">
+
+                  <p>Solar Battery Storage</p>
+                  <input placeholder="kW" id="batteryInput" type="text" class="validate" value="{{weather.battery}}">
 
                   <button class="ui button" type="submit">Submit</button>
                 </form>

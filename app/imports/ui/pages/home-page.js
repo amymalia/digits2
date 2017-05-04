@@ -185,10 +185,11 @@ Template.Home_Page.events({
     // Get name (text field)
     const areaPanel = document.getElementById("panelAreaInput").value;
     const absorbPanel = document.getElementById("panelAbsorbInput").value;
+    const battery = document.getElementById("batteryInput").value;
     const weathers = Weather.find().fetch();
     const weather = weathers[0];
     Weather.update(weather._id, {
-     $set: { areaPanel, absorbPanel},
+     $set: { areaPanel, absorbPanel, battery},
     });
     //Meteor.call('checkRadiation', latitude, longitude);
   },
