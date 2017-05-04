@@ -101,7 +101,7 @@ function productionGraph() {
     for(let j = i*3; j < i*3 + 3; j++)
     {
         //diving by 1000 to give KWH
-        prodArr[j] = parseFloat(w.hourlyRadiation[j]) * p/1000.00;
+        prodArr[j] = parseFloat(w.hourlyRadiation[j]) * p/1000.00 * w.areaPanel * w.absorbPanel;
     }
 
   }
