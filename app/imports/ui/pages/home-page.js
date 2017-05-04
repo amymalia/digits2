@@ -73,7 +73,7 @@ function consumptionGraph() {
   }
   const firstHour = parseInt(w.hourlyClouds[0].time);
   console.log('conArr: ' + conArr);
-  reorder(conArr, firstHour);
+  return reorder(conArr, firstHour);
 }
 
 function reorder(Arr, firstHour)
@@ -139,8 +139,7 @@ function xaxis() {
   let d = new Date();
   let h = d.getHours();
   let labels = [];
-  let hour = h;
-  for (let i = h; i < 24; i ++) {
+  for (let i = 0; i < 24; i ++) {
     labels.push(h)
     if (h === 23) {
       h = 0;
@@ -281,4 +280,165 @@ Template.Home_Page.events({
 
 Template.Home_Page.onRendered(function onRendered() {
   this.$('.ui.accordion').accordion();
+
+  this.autorun(() => {
+    if (this.subscriptionsReady()){
+    var ctx = document.getElementById("myChart");
+
+    var fillBetweenLinesPlugin = {
+      afterDatasetsDraw: function (chart) {
+        var ctx = chart.chart.ctx;
+        var xaxis = chart.scales['x-axis-0'];
+        var yaxis = chart.scales['y-axis-0'];
+        var datasets = chart.data.datasets;
+        ctx.save();
+
+        for (var d = 0; d < datasets.length; d++) {
+          var dataset = datasets[d];
+          if (dataset.fillBetweenSet == undefined) {
+            continue;
+          }
+
+          // get meta for both data sets
+          var meta1 = chart.getDatasetMeta(d);
+          var meta2 = chart.getDatasetMeta(dataset.fillBetweenSet);
+
+          ctx.beginPath();
+
+          // vars for tracing
+          var curr, prev;
+
+          // trace set1 line
+          for (var i = 0; i < meta1.data.length; i++) {
+            curr = meta1.data[i];
+            if (i === 0) {
+              ctx.moveTo(curr._view.x, curr._view.y);
+              ctx.lineTo(curr._view.x, curr._view.y);
+              prev = curr;
+              continue;
+            }
+            if (curr._view.steppedLine === true) {
+              ctx.lineTo(curr._view.x, prev._view.y);
+              ctx.lineTo(curr._view.x, curr._view.y);
+              prev = curr;
+              continue;
+            }
+            if (curr._view.tension === 0) {
+              ctx.lineTo(curr._view.x, curr._view.y);
+              prev = curr;
+              continue;
+            }
+
+            ctx.bezierCurveTo(
+                prev._view.controlPointNextX,
+                prev._view.controlPointNextY,
+                curr._view.controlPointPreviousX,
+                curr._view.controlPointPreviousY,
+                curr._view.x,
+                curr._view.y
+            );
+            prev = curr;
+          }
+
+
+          // connect set1 to set2 then BACKWORDS trace set2 line
+          for (var i = meta2.data.length - 1; i >= 0; i--) {
+            curr = meta2.data[i];
+            if (i === meta2.data.length - 1) {
+              ctx.lineTo(curr._view.x, curr._view.y);
+              prev = curr;
+              continue;
+            }
+            if (curr._view.steppedLine === true) {
+              ctx.lineTo(prev._view.x, curr._view.y);
+              ctx.lineTo(curr._view.x, curr._view.y);
+              prev = curr;
+              continue;
+            }
+            if (curr._view.tension === 0) {
+              ctx.lineTo(curr._view.x, curr._view.y);
+              prev = curr;
+              continue;
+            }
+
+            // reverse bezier
+            ctx.bezierCurveTo(
+                prev._view.controlPointPreviousX,
+                prev._view.controlPointPreviousY,
+                curr._view.controlPointNextX,
+                curr._view.controlPointNextY,
+                curr._view.x,
+                curr._view.y
+            );
+            prev = curr;
+          }
+
+          ctx.closePath();
+          ctx.fillStyle = dataset.fillBetweenColor || "rgba(0,0,0,0.1)";
+          ctx.fill();
+        }
+      } // end afterDatasetsDraw
+    }; // end fillBetweenLinesPlugin
+
+    Chart.pluginService.register(fillBetweenLinesPlugin);
+  var data = {
+    labels: xaxis(),
+    datasets: [
+      {
+        label: "Solar Energy Generated",
+        fill: false,
+        lineTension: 0.5,
+        backgroundColor: "rgba(75,192,192,0.4)",
+        borderColor: "rgba(75,192,192,1)",
+        borderCapStyle: 'butt',
+        borderDash: [],
+        borderDashOffset: 0.0,
+        borderJoinStyle: 'miter',
+        pointBorderColor: "rgba(75,192,192,1)",
+        pointBackgroundColor: "#fff",
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: "rgba(75,192,192,1)",
+        pointHoverBorderColor: "rgba(220,220,220,1)",
+        pointHoverBorderWidth: 2,
+        pointRadius: 1,
+        pointHitRadius: 10,
+        data: productionGraph(),
+        spanGaps: false,
+        fillBetweenSet: 1,
+        fillBetweenColor: "rgba(255,0,0, 0.2)",
+      },
+      {
+        label: "Your Energy Usage",
+        fill: false,
+        lineTension: 0.5,
+        backgroundColor: "rgba(128,0,0,0.4)",
+        borderColor: "rgba(128,0,0,0.4)",
+        borderCapStyle: 'butt',
+        borderDash: [],
+        borderDashOffset: 0.0,
+        borderJoinStyle: 'miter',
+        pointBorderColor: "rgba(75,192,192,1)",
+        pointBackgroundColor: "#fff",
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: "rgba(75,192,192,1)",
+        pointHoverBorderColor: "rgba(220,220,220,1)",
+        pointHoverBorderWidth: 2,
+        pointRadius: 1,
+        pointHitRadius: 10,
+        data: consumptionGraph(),
+        spanGaps: false,
+        //fillBetweenSet: 0,
+        //fillBetweenColor: "rgba(5,5,255, 0.2)",
+      }
+    ]
+  };
+  var myLineChart = new Chart(ctx, {
+    type: 'line',
+    data: data,
+  });
+  };
 });
+});
+
