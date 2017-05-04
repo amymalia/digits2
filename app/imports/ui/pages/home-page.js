@@ -24,6 +24,7 @@ function hourlyProduction() {
   const actual_radiation = p * parseFloat(w.radiation);
 
   t_prod = w.areaPanel * w.absorbPanel * actual_radiation;
+  //console.log(t_prod);
   return t_prod;
 }
 
@@ -41,6 +42,7 @@ function productionGraph() {
     }
 
   }
+  console.log(prodArr);
   return prodArr;
 }
 
@@ -81,6 +83,7 @@ function reorder(Arr, firstHour)
       finalArr[i] = Arr[j - 24];
     }
   }
+  console.log(finalArr);
   return finalArr;
 }
 
