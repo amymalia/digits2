@@ -22,8 +22,15 @@
 
               <div class="row">
                 <div class="centered column">
-                  <div class="ui basic buttons">
-                    <button class="ui basic button device-sliders" type="submit">Add new device</button>
+                  <div class="ui basic button devices" type="submit">Add new device</div>
+                  <div class="ui special popup">
+                    <form class="new-device">
+                      <p>Device name</p>
+                      <input placeholder="Toaster" id="deviceNameInput" type="text" class="validate">
+                      <p>Device power</p>
+                      <input placeholder="W/h" id="devicePowerInput" type="text" class="validate">
+                      <button class="ui button" type="submit">Submit</button>
+                    </form>
                   </div>
                 </div>
               </div>

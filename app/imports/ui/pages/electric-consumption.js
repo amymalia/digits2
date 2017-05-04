@@ -12,6 +12,15 @@ $(document).ready(function () {
 
 });
 
+
+Template.Electric_Consumption_Page.onRendered(function onRendered() {
+  this.$('.devices').popup({
+    on: 'click',
+    inline: true
+  });
+});
+
+
 function totalConsumption() {
   let t_consump = 0;
   const w = Weather.find().fetch()[0];
@@ -114,14 +123,23 @@ Template.Electric_Consumption_Page.events({
         newDevices[i].time[splitID[1]] = 1 - newDevices[i].time[splitID[1]];
       }
     }
-    //let device = _.where(newDevices, { name: splitID[0] });
-    //console.log(event.currentTarget.id);
-    //console.log(_.where(newDevices, { name: splitID[0] }));
-    //swaps between 1 and 0
-    //device.time[splitID[1]] = 1 - device.time[splitID[1]];
     console.log(newDevices);
     Weather.update(weather._id, {
       $set: { devices: newDevices },
     });
+  },
+  'submit .new-device'(event, instance) {
+    event.preventDefault();
+    // Get name (text field)
+    const name = document.getElementById("deviceNameInput").value;
+    const power = document.getElementById("devicePowerInput").value;
+    const weathers = Weather.find().fetch();
+    const weather = weathers[0];
+    let devices = weather.devices;
+    devices.push({name: name, power: power, time:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] });
+    Weather.update(weather._id, {
+      $set: { devices },
+    });
+    //Meteor.call('checkRadiation', latitude, longitude);
   },
 });
