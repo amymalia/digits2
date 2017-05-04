@@ -50,19 +50,29 @@ function consumptionGraph() {
   let conArr = [];
   const w = Weather.find().fetch()[0];
 
+    for(let i = 0; i < 24; i++)
+    {
+      conArr[i] = 0;
+    }
+
+  console.log('device length: ' + w.devices.length);
   for(let i = 0; i < w.devices.length; i++)
   {
     for(let j = 0; j < 24; j++)
     {
-      if(w.devices[i].time[j] != 0)
+      console.log('device time for' + i + ' :'+ parseInt(w.devices[i].time[j]));
+      if(parseInt(w.devices[i].time[j]) != 0)
       {
         //converting to KWH
-        conArr[j] += w.devices[i].power/1000.00;
+          console.log('aassigning to array: ' + parseFloat(w.devices[i].power));
+        conArr[j] += parseFloat(parseFloat(w.devices[i].power)/1000.00);
+        console.log('conArr at ind '+j+' :' + conArr[j])
       }
 
     }
   }
   const firstHour = parseInt(w.hourlyClouds[0].time);
+  console.log('conArr: ' + conArr);
   reorder(conArr, firstHour);
 }
 
@@ -72,15 +82,23 @@ function reorder(Arr, firstHour)
   let lastInd = (Arr.length - 1) - offset;
   let finalArr = [];
 
+  for(let i = 0; i < 24; i++)
+  {
+      finalArr[i] = 0;
+  }
+
   for(let i = 0, j = offset; i < 24; i++, j++)
   {
-    if(j > lastInd)
+    console.log('i: '+i+' j:' + j);
+    if(j < 24)
     {
-      finalArr[i] = Arr[j];
+      console.log('it is lesser');
+      finalArr[i] = parseFloat(Arr[j]);
     }
     else
     {
-      finalArr[i] = Arr[j - 24];
+        console.log('it is greater');
+      finalArr[i] = parseFloat(Arr[j - 24]);
     }
   }
   console.log(finalArr);
