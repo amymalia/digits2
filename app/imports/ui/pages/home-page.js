@@ -28,6 +28,69 @@ function hourlyProduction() {
   return t_prod;
 }
 
+function batteryGraph() {
+  let prodArr = productionGraph();
+  let conArr = consumptionGraph();
+  let batArr = [];
+  const w = Weather.find().fetch()[0];
+  const battery = parseFloat(w.storedEnergy);
+
+  for(let i = 0; i < 24; i++)
+  {
+    batArr[i] = 0;
+  }
+
+  for(let i = 0; i < 24; i++)
+  {
+    if(prodArr[i] > conArr[i])
+    {
+      if(battery >= parseFloat(w.battery))
+      {
+        console.log('sell back to grid');
+        batArr[i] = prodArr[i] + battery;
+      }
+      else
+      {
+        battery += prodArr[i] - conArr[i];
+        if(battery >= parseFloat(w.battery))
+        {
+          battery = parseFloat(w.battery);
+        }
+        batArr[i] = prodArr[i] + battery;
+
+        let storedEnergy = battery;
+        Weather.update(weather._id, {
+            $set: { storedEnergy },
+        });
+      }
+
+    }
+    else
+    {
+      if( battery <= 0)
+      {
+        batArr[i] = prodArr[i];
+      }
+      else
+      {
+        battery += prodArr[i] - conArr[i];
+        if(battery <= 0)
+        {
+          battery = 0;
+        }
+        batArr[i] = prodArr[i] + battery;
+
+        let storedEnergy = battery;
+        Weather.update(weather._id, {
+            $set: { storedEnergy },
+        });
+      }
+    }
+  }
+  return batArr;
+
+}
+
 function productionGraph() {
   let prodArr = [];
   const w = Weather.find().fetch()[0];
