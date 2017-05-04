@@ -52,9 +52,19 @@ Meteor.methods({
 
       //hourly radiation
       let hourlyRadiation = [];
-      for(let i = 0; i < 24; i++)
+      for(let k = 0; k < 24; k++)
       {
-
+          let avgHourly = radiationArray[index+k];
+          for(var i = 0; i < 480; i += 24)
+          {
+              avgHourly += radiationArray[index+k + i];
+          }
+          for(var i = 0; i > 480; i += 24)
+          {
+              avgHourly += radiationArray[index+k - i];
+          }
+          avgHourly = avgHourly/40;
+          hourlyRadiation[k] = avgHourly;
       }
       //console.log('Radiation Forecast' + radiationForecast);
       //console.log(radiationArray[index]);
@@ -86,14 +96,14 @@ Meteor.methods({
       const clouds = response.data.clouds.all;
       const name = response.data.name;
       const radiation = avgHourly;
-      const weather = { latitude, longitude, description, temperature, windSpeed, clouds, name, radiation, radiationForecast, cloudForecast, hourlyClouds};
+      const weather = { latitude, longitude, description, temperature, windSpeed, clouds, name, radiation, radiationForecast, cloudForecast, hourlyClouds, hourlyRadiation};
       if (Weather.find().count() === 0) {
         Weather.define(weather);
       } else {
         const weathers = Weather.find().fetch();
         const weather = weathers[0];
         Weather.update(weather._id, {
-          $set: { latitude, longitude, description, temperature, windSpeed, clouds, name, radiation, devices, radiationForecast, cloudForecast, hourlyClouds},
+          $set: { latitude, longitude, description, temperature, windSpeed, clouds, name, radiation, radiationForecast, cloudForecast, hourlyClouds, hourlyRadiation},
         });
       }
       return weather;
