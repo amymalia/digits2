@@ -24,7 +24,85 @@ function hourlyProduction() {
   const actual_radiation = p * parseFloat(w.radiation);
 
   t_prod = w.areaPanel * w.absorbPanel * actual_radiation;
+  //console.log(t_prod);
   return t_prod;
+}
+
+function productionGraph() {
+  let prodArr = [];
+  const w = Weather.find().fetch()[0];
+  for(let i = 0; i < 8; i++)
+  {
+    let cloud_percent = parseFloat(w.hourlyClouds[i].clouds)/100.00;
+    let p = (1 - (0.75 * (Math.pow(cloud_percent, 3))));
+    for(let j = i*3; j < i*3 + 3; j++)
+    {
+        //diving by 1000 to give KWH
+        prodArr[j] = parseFloat(w.hourlyRadiation[j]) * p/1000.00;
+    }
+
+  }
+  console.log(prodArr);
+  return prodArr;
+}
+
+function consumptionGraph() {
+  let conArr = [];
+  const w = Weather.find().fetch()[0];
+
+    for(let i = 0; i < 24; i++)
+    {
+      conArr[i] = 0;
+    }
+
+  console.log('device length: ' + w.devices.length);
+  for(let i = 0; i < w.devices.length; i++)
+  {
+    for(let j = 0; j < 24; j++)
+    {
+      console.log('device time for' + i + ' :'+ parseInt(w.devices[i].time[j]));
+      if(parseInt(w.devices[i].time[j]) != 0)
+      {
+        //converting to KWH
+          console.log('aassigning to array: ' + parseFloat(w.devices[i].power));
+        conArr[j] += parseFloat(parseFloat(w.devices[i].power)/1000.00);
+        console.log('conArr at ind '+j+' :' + conArr[j])
+      }
+
+    }
+  }
+  const firstHour = parseInt(w.hourlyClouds[0].time);
+  console.log('conArr: ' + conArr);
+  reorder(conArr, firstHour);
+}
+
+function reorder(Arr, firstHour)
+{
+  let offset = firstHour;
+  let lastInd = (Arr.length - 1) - offset;
+  let finalArr = [];
+
+  for(let i = 0; i < 24; i++)
+  {
+      finalArr[i] = 0;
+  }
+
+  for(let i = 0, j = offset; i < 24; i++, j++)
+  {
+    console.log('i: '+i+' j:' + j);
+    if(j < 24)
+    {
+      console.log('it is lesser');
+      finalArr[i] = parseFloat(Arr[j]);
+    }
+    else
+    {
+        console.log('it is greater');
+      finalArr[i] = parseFloat(Arr[j - 24]);
+    }
+  }
+  console.log(finalArr);
+  return finalArr;
 }
 
 function avgMoneyGenerated() {
@@ -148,6 +226,12 @@ Template.Home_Page.helpers({
       return 0;
     }
     return difference.toFixed(2);
+  },
+  productionGraphHelper() {
+    return productionGraph();
+  },
+  consumptionGraphHelper() {
+    return consumptionGraph();
   }
 });
 
