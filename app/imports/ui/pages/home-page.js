@@ -57,6 +57,22 @@ function energyTime() {
   return energy_left_min;
 }
 
+function xaxis() {
+  let d = new Date();
+  let h = d.getHours();
+  let labels = [];
+  let hour = h;
+  for (let i = h; i < 24; i ++) {
+    labels.push(h)
+    if (h === 23) {
+      h = 0;
+    } else {
+      h += 1;
+    }
+  }
+  return labels;
+}
+
 /*window.setInterval(function(){
   let storedEnergy = 0;
   storedEnergy += (totalProduction() - totalConsumption())/60.00;
@@ -148,7 +164,7 @@ Template.Home_Page.helpers({
       return 0;
     }
     return difference.toFixed(2);
-  }
+  },
 });
 
 Template.Home_Page.onCreated(function onCreated() {
