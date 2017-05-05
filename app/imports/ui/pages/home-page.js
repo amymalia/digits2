@@ -128,7 +128,7 @@ function consumptionTotal() {
   {
     totalCon += parseFloat(conArr[i]);
   }
-  return conArr;
+  return totalCon;
 }
 
 function batteryUsageTotal() {
@@ -156,7 +156,25 @@ function batteryUsageTotal() {
   return batTotal;
 }
 
-
+function gridUsageTotal() 
+{    
+  let conArr = consumptionGraph();    
+  let batArr = batteryGraph();    
+  const w = Weather.find().fetch()[0];      
+  let storedEnergy = parseFloat(w.storedEnergy);      
+  let batteryCapacity = parseFloat(w.battery);    
+  let gridTotal = 0;    
+  let maxBatProd = [0]; 
+   //if consumption > battery + produc, add the difference to gridTotal    
+  for(let i = 0; i < prodArr.length; i++)    
+  {      
+    if(conArr[i] > batArr[i])
+    {
+      gridTotal += conArr[i] - batArr[i];
+    }
+  }   
+  return gridTotal;  
+} 
 
 
 
