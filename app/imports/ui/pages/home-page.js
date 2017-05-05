@@ -520,9 +520,26 @@ Template.Home_Page.onRendered(function onRendered() {
       }
     ]
   };
+    let options= {
+      scales: {
+        yAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'kW'
+          }
+        }],
+        xAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'Time of Day'
+          }
+        }]
+      }
+    }
   var myLineChart = new Chart(ctx, {
     type: 'line',
     data: data,
+    options: options,
   });
   };
 });
