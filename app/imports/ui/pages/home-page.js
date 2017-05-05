@@ -397,6 +397,15 @@ Template.Home_Page.helpers({
       return `(${w[0].name})`;
     }
   },
+  productionTotalHelper() {
+    return productionTotal();
+  },
+  consumptionTotalHelper() {
+    return consumptionTotal();
+  },
+  batteryUsageTotalHelper() {
+    return batteryUsageTotal();
+  }
 });
 
 Template.Home_Page.onCreated(function onCreated() {
