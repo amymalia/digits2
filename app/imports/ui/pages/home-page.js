@@ -343,6 +343,7 @@ Template.Home_Page.events({
 
 Template.Home_Page.onRendered(function onRendered() {
   this.$('.ui.accordion').accordion();
+  this.$('.carousel.carousel-slider').carousel({fullWidth: true});
 
   this.autorun(() => {
     if (this.subscriptionsReady()){
@@ -444,7 +445,9 @@ Template.Home_Page.onRendered(function onRendered() {
     }; // end fillBetweenLinesPlugin
 
     Chart.pluginService.register(fillBetweenLinesPlugin);
-  var data = {
+    Chart.defaults.global.responsive = true
+    Chart.defaults.global.maintainAspectRatio = true
+    var data = {
     labels: xaxis(),
     datasets: [
       {

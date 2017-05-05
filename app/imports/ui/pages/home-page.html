@@ -23,31 +23,43 @@
               </div>
           </div>
       </div>
-      <H4> Your Energy Rate <i class="sun icon" style="color: goldenrod; text-align: center "></i></H4>
+      <H4 style="margin-top:40px"> Your Energy Rate <i class="sun icon" style="color: goldenrod; text-align: center "></i></H4>
 
-      <div style="margin-top: 20px;" class="ui one column centered grid container">
-      <table style="padding: 0px" class="ui collapsing celled table">
-        <tbody>
-        <tr>
-          <td class="negative">Cost: ${{rawCost}}</td>
-          <td class="positive">Saved: ${{saved}}</td>
-          <td>Final: ${{finalCost}}</td>
-        </tr>
-        </tbody>
-      </table>
+      <div style="width:1200px; height:500px" class="carousel carousel-slider center" data-indicators="true">
+        <div class="carousel-item white black-text" href="#one!">
+          <canvas id="myChart" width="1200" height="500"></canvas>
+        </div>
+        <div class="carousel-item white white-text" href="#two!">
+          <div style="margin-top: 20px;" class="ui one column centered grid container">
+            <table style="padding: 0px" class="ui collapsing celled table">
+              <tbody>
+              <tr>
+                <td class="negative">Cost: ${{rawCost}}</td>
+                <td class="positive">Saved: ${{saved}}</td>
+                <td>Final: ${{finalCost}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <a style="color:teal; float: left">{{totalProductionHelper}} kW/h from solar</a>
+          <a style="color:#ff6d00; float: right">{{totalConsumptionHelper}} kW/h from other source</a>
+          <div class="progress" style=" background-color: #ff6d00; border-radius: 4px; padding: 8px ">
+            <div class="determinate" style="width: {{barRatio}}%"></div>
+          </div>
+        </div>
+        <div class="carousel-item green white-text" href="#three!">
+          <h2>Third Panel</h2>
+          <p class="white-text">This is your third panel</p>
+        </div>
+        <div class="carousel-item blue white-text" href="#four!">
+          <h2>Fourth Panel</h2>
+          <p class="white-text">This is your fourth panel</p>
+        </div>
       </div>
-      <canvas id="myChart" width="200" height="200"></canvas>
 
-
-
-      <a style="color:teal; float: left">{{totalProductionHelper}} kW/h from solar</a>
-      <a style="color:#ff6d00; float: right">{{totalConsumptionHelper}} kW/h from other source</a>
-      <div class="progress" style=" background-color: #ff6d00; border-radius: 4px; padding: 8px ">
-        <div class="determinate" style="width: {{barRatio}}%"></div>
-      </div>
-      <div class="ui styled fluid accordion">
+      <div style="margin-top: 10px" class="ui styled fluid accordion">
         <div class="title">
-          CHANGE LOCATION SETTINGS
+          CHANGE LOCATION SETTINGS ({{weather.name}})
         </div>
         <div class="content">
           <div class="container">
