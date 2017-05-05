@@ -46,34 +46,105 @@
           <div class="progress" style=" background-color: #ff6d00; border-radius: 4px; padding: 8px ">
             <div class="determinate" style="width: {{barRatio}}%"></div>
           </div>
-          <div style="margin-top: 20px;" class="ui one column centered grid container">
 
-          <div class="ui statistics">
-            <div class="statistic">
-              <div class="value">
-                {{consumptionTotalHelper}} W
+          <div style="margin-top: 20px;" class="ui three column centered grid container">
+            <div class="column">
+              <div class="row">
+                <div class="ui statistic">
+                  <div class="value">
+                    {{consumptionTotalHelper}} kW
+                  </div>
+                  <div class="label">
+                    Total Energy Consumption
+                  </div>
+                </div>
               </div>
-              <div class="label">
-                Total Energy Consumption
+              <div class="row">
+                <div class="ui statistic">
+                  <div class="value">
+                    {{gridUsageTotalHelper}} kW
+                  </div>
+                  <div class="label">
+                    Total Energy Consumed From Grid
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="ui statistic">
+                  <div class="value">
+                    {{batteryUsageTotalHelper}} kW
+                  </div>
+                  <div class="label">
+                    Total Energy Consumed From Battery
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="ui statistic">
+                  <div class="value">
+                    {{solarUsageTotal}} kW
+                  </div>
+                  <div class="label">
+                    Total Energy Consumed Directly From Panel
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="statistic">
-              <div class="value">
-                {{productionTotalHelper}} W
-              </div>
-              <div class="label">
-                Total Energy From Solar
-              </div>
-            </div>
-            <div class="statistic">
-              <div class="value">
-                82
-              </div>
-              <div class="label">
-                Teal
+            <div class="column">
+              <div style="margin-top:125px" class="row">
+                <div class="ui statistic">
+                  <div class="value">
+                    <i class="sun icon" style="color: goldenrod"></i>
+                    {{productionTotalHelper}} kW
+                  </div>
+                  <div class="label">
+                    Total Energy Generated From Solar
+                  </div>
+                </div>
               </div>
             </div>
-        </div>
+            <div class="column">
+              <div class="row">
+                <div class="ui statistic">
+                  <div class="value">
+                    ${{gridUsageTotalCostHelper}}
+                  </div>
+                  <div class="label">
+                    Total Estimated Cost From Grid
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="ui statistic">
+                  <div class="value">
+                    ${{batteryUsageTotalCostHelper}}
+                  </div>
+                  <div class="label">
+                    Total Estimated Saved From Battery
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="ui statistic">
+                  <div class="value">
+                    ${{solarUsageTotalCost}}
+                  </div>
+                  <div class="label">
+                    Total Estimated From Direct Panel
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="ui statistic">
+                  <div class="value">
+                    ${{totalSaved}}
+                  </div>
+                  <div class="label">
+                    Total Estimated Saved
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           </div>
 

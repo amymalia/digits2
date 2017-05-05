@@ -166,20 +166,16 @@ function gridUsageTotal()
   let gridTotal = 0;    
   let maxBatProd = [0]; 
    //if consumption > battery + produc, add the difference to gridTotal    
-  for(let i = 0; i < prodArr.length; i++)    
+  for(let i = 0; i < conArr.length; i++)   
   {      
     if(conArr[i] > batArr[i])
     {
       gridTotal += conArr[i] - batArr[i];
     }
   }   
+  console.log('grid totes: ' + gridTotal);
   return gridTotal;  
 } 
-
-
-
-
-
 
 function consumptionGraph() {
   let conArr = [];
@@ -398,13 +394,31 @@ Template.Home_Page.helpers({
     }
   },
   productionTotalHelper() {
-    return productionTotal();
+    return Math.round(productionTotal());
   },
   consumptionTotalHelper() {
-    return consumptionTotal();
+    return Math.round(consumptionTotal());
   },
   batteryUsageTotalHelper() {
-    return batteryUsageTotal();
+    return Math.round(batteryUsageTotal());
+  },
+  gridUsageTotalHelper() {
+    return Math.round(gridUsageTotal());
+  },
+  solarUsageTotal() {
+    return Math.round(consumptionTotal() - (batteryUsageTotal() + gridUsageTotal()));
+  },
+  batteryUsageTotalCostHelper() {
+    return (batteryUsageTotal() * 0.11).toFixed(2);
+  },
+  gridUsageTotalCostHelper() {
+    return (gridUsageTotal() * 0.11).toFixed(2);
+  },
+  solarUsageTotalCost() {
+    return ((Math.round(consumptionTotal() - (batteryUsageTotal() + gridUsageTotal())))*0.11).toFixed(2);
+  },
+  totalSaved() {
+    return (((consumptionTotal() - (batteryUsageTotal() + gridUsageTotal()))*0.11) + (batteryUsageTotal() * 0.11)).toFixed(2);
   }
 });
 
