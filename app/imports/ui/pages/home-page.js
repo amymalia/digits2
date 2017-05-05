@@ -111,6 +111,58 @@ function productionGraph() {
   return prodArr;
 }
 
+function productionTotal() {
+ let prodArr = productionGraph();
+ let totalProd = 0;
+  for(let i = 0; i < prodArr.length; i++)
+  {
+    totalProd += parseFloat(prodArr[i]);
+  }
+  return totalProd;
+}
+
+function consumptionTotal() {
+ let conArr = consumptionGraph();
+ let totalCon = 0;
+  for(let i = 0; i < conArr.length; i++)
+  {
+    totalCon += parseFloat(conArr[i]);
+  }
+  return conArr;
+}
+
+function batteryUsageTotal() {
+  let prodArr = productionGraph();
+  let batArr = batteryGraph();
+  const w = Weather.find().fetch()[0];  
+  let storedEnergy = parseFloat(w.storedEnergy);  
+  let batteryCapacity = parseFloat(w.battery);
+  let batTotal = 0;
+  let maxBatProd = [0];
+  for(let i = 0; i < 24; i++)
+  {
+    maxBatProd[i] = 0;
+  }
+  //find max possible
+  for( let i = 0; i < prodArr.length; i++)
+  {
+    maxBatProd[i] = prodArr[i] + batteryCapacity;
+  }
+  //if the difference, total of difference is total battery used
+  for(let i = 0; i < prodArr.length; i++)
+  {
+    batTotal += maxBatProd[i] - batArr[i]; 
+  }
+  return batTotal;
+}
+
+
+
+
+
+
+
+
 function consumptionGraph() {
   let conArr = [];
   const w = Weather.find().fetch()[0];
