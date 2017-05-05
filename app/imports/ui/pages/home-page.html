@@ -62,18 +62,44 @@
           CHANGE LOCATION SETTINGS ({{weather.name}})
         </div>
         <div class="content">
-          <div class="container">
-            <div class="row">
-              <div class="col s12">
-                <form class="location-data">
-                  <p>Latitude</p>
-                  <input placeholder="degrees" id="latInput" type="text" class="validate" value="{{weather.latitude}}">
+          <div class="ui equal width centered internally celled grid container">
+            <div class="column">
+              <div class="container">
+                <div class="row">
+                  <div class>
+                      <button class="ui basic button" type="submit">Find my location with GPS</button>
+                   </div>
+                </div>
+              </div>
+            </div>
 
-                  <p>Longitude</p>
-                  <input placeholder="degrees" id="longInput" type="text" class="validate" value="{{weather.longitude}}">
+            <div class="column">
+              <div class="container">
+                <div class="row">
+                  <div class>
+                    <form class="location-name-data">
+                      <input placeholder="Honolulu" id="locationInput" type="text" class="validate" value="{{weather.name}}">
+                      <button class="ui basic button" type="submit">Submit</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="column">
+              <div class="container">
+                <div class="row">
+                  <div class>
+                    <form class="location-data">
+                      <p>Latitude</p>
+                      <input placeholder="degrees" id="latInput" type="text" class="validate" value="{{weather.latitude}}">
 
-                  <button class="ui button" type="submit">Submit</button>
-                </form>
+                      <p>Longitude</p>
+                      <input placeholder="degrees" id="longInput" type="text" class="validate" value="{{weather.longitude}}">
+
+                      <button class="ui basic button" type="submit">Submit</button>
+                    </form>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -86,16 +112,16 @@
             <div class="row">
               <div class="col s12">
                 <form class="panel-data">
-                  <p>Total Solar Panel Area</p>
+                  <p>Total Solar Panel Area (m^2)</p>
                   <input placeholder="m^2" id="panelAreaInput" type="text" class="validate" value="{{weather.areaPanel}}">
 
-                  <p>Panel Absorption Index</p>
+                  <p>Panel Absorption Index (%)</p>
                   <input placeholder="%" id="panelAbsorbInput" type="text" class="validate" value="{{weather.absorbPanel}}">
 
-                  <p>Solar Battery Storage</p>
+                  <p>Solar Battery Storage (kW)</p>
                   <input placeholder="kW" id="batteryInput" type="text" class="validate" value="{{weather.battery}}">
 
-                  <button class="ui button" type="submit">Submit</button>
+                  <button class="ui basic button" type="submit">Submit</button>
                 </form>
               </div>
             </div>
