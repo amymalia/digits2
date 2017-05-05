@@ -46,7 +46,37 @@
           <div class="progress" style=" background-color: #ff6d00; border-radius: 4px; padding: 8px ">
             <div class="determinate" style="width: {{barRatio}}%"></div>
           </div>
+          <div style="margin-top: 20px;" class="ui one column centered grid container">
+
+          <div class="ui statistics">
+            <div class="statistic">
+              <div class="value">
+                8
+              </div>
+              <div class="label">
+                Orange
+              </div>
+            </div>
+            <div class="statistic">
+              <div class="value">
+                14
+              </div>
+              <div class="label">
+                Green
+              </div>
+            </div>
+            <div class="statistic">
+              <div class="value">
+                82
+              </div>
+              <div class="label">
+                Teal
+              </div>
+            </div>
         </div>
+          </div>
+          </div>
+
         <div class="carousel-item green white-text" href="#three!">
           <h2>Third Panel</h2>
           <p class="white-text">This is your third panel</p>
@@ -118,8 +148,8 @@
                   <p>Panel Absorption Index (%)</p>
                   <input placeholder="%" id="panelAbsorbInput" type="text" class="validate" value="{{weather.absorbPanel}}">
 
-                  <p>Solar Battery Storage (kW)</p>
-                  <input placeholder="kW" id="batteryInput" type="text" class="validate" value="{{weather.battery}}">
+                  <p>Solar Battery Storage (W)</p>
+                  <input placeholder="W" id="batteryInput" type="text" class="validate" value="{{weather.battery}}">
 
                   <button class="ui basic button" type="submit">Submit</button>
                 </form>

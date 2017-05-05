@@ -21,8 +21,8 @@ Template.Edit_Device.events({
   'submit .edit-device'(event, instance) {
     event.preventDefault();
     // Get name (text field)
-    const name = document.getElementById("deviceNameInput").value;
-    const power = document.getElementById("devicePowerInput").value;
+    const name = document.getElementById("editDeviceNameInput").value;
+    const power = document.getElementById("editDevicePowerInput").value;
     const weathers = Weather.find().fetch();
     const weather = weathers[0];
     let devices = weather.devices;

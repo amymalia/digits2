@@ -1,17 +1,9 @@
-/**
- * Created by mike3 on 4/29/2017.
- */
 import {Template} from 'meteor/templating';
 import {Weather} from '../../api/weather/weather.js';
 import {_} from 'meteor/underscore';
+import { ReactiveDict } from 'meteor/reactive-dict';
 
-$(document).ready(function () {
-  // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-  //$('.modal-trigger').leanModal();
-  //$('.modal1').modal();
-
-});
-
+const toggleToaster = 'off';
 
 Template.Electric_Consumption_Page.onRendered(function onRendered() {
   this.$('.devices').popup({
@@ -64,9 +56,21 @@ function updateValue(newVal, deviceName) {
 
 Template.Electric_Consumption_Page.onCreated(function onCreated() {
   this.subscribe(Weather.getPublicationName());
+  this.toggles = new ReactiveDict();
+  this.toggles.set(toggleToaster, 'off');
 });
 
 Template.Electric_Consumption_Page.helpers({
+  check() {
+    //console.log("HELLOOOOOOOOOOOOOOO!!!!!!!!!!!!!!!!");
+    //const status = document.getElementById("short-device-toaster").checked;
+    //console.log('status: ' + status);
+    if(Template.instance().toggles.get(toggleToaster) === 'on') {
+      return 'teal';
+    } else {
+      return '';
+    }
+  },
   deviceButtons(device) {
     let buttons = '';
     for (let i = 0; i < device.time.length; i ++) {
@@ -142,4 +146,14 @@ Template.Electric_Consumption_Page.events({
     });
     //Meteor.call('checkRadiation', latitude, longitude);
   },
+  'change .toggle'(event, instance) {
+    event.preventDefault();
+    // Get name (text field)
+    if(instance.toggles.get(toggleToaster) === 'on') {
+      instance.toggles.set(toggleToaster, 'off');
+    } else {
+      instance.toggles.set(toggleToaster, 'on');
+    }
+  },
+
 });
