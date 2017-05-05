@@ -1,0 +1,20 @@
+<template name="Edit_Device">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+
+  <i style="margin-left: -25px;" class="edit icon devices"></i>
+  <div class="ui special popup">
+    <form class="edit-device">
+      <p>Device name</p>
+      <input placeholder="Toaster" id="deviceNameInput" type="text" class="validate">
+      <p>Device power</p>
+      <input placeholder="W/h" id="devicePowerInput" type="text" class="validate">
+      <div class="ui tiny basic buttons">
+      <button class="ui tiny basic button" type="submit">Update</button>
+      <button class="ui tiny basic button" type="submit">Remove</button>
+      </div>
+    </form>
+  </div>
+
+</template>
