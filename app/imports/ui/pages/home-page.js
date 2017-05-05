@@ -33,7 +33,8 @@ function batteryGraph() {
   let conArr = consumptionGraph();
   let batArr = [];
   const w = Weather.find().fetch()[0];
-  let battery = parseFloat(w.storedEnergy);
+  let storedEnergy = parseFloat(w.storedEnergy);
+  let batteryCapacity = parseFloat(w.battery);
 
   for(let i = 0; i < 24; i++)
   {
@@ -44,46 +45,44 @@ function batteryGraph() {
   {
     if(prodArr[i] > conArr[i])
     {
-      if(battery >= parseFloat(w.battery))
+      if(storedEnergy >= batteryCapacity)
       {
         console.log('sell back to grid');
-        batArr[i] = prodArr[i] + battery;
+        batArr[i] = prodArr[i] + batteryCapacity;
       }
       else
       {
-        battery += prodArr[i] - conArr[i];
-        if(battery >= parseFloat(w.battery))
+        storedEnergy += prodArr[i] - conArr[i];
+        if(storedEnergy >= batteryCapacity)
         {
-          battery = parseFloat(w.battery);
+          storedEnergy = batteryCapacity;
         }
-        batArr[i] = prodArr[i] + battery;
+        batArr[i] = prodArr[i] + storedEnergy;
 
-        let storedEnergy = battery;
-        Weather.update(w._id, {
-            $set: { storedEnergy },
-        });
+        //Weather.update(w._id, {
+        //    $set: {storedEnergy}
+        //});
       }
 
     }
     else
     {
-      if( battery <= 0)
+      if( storedEnergy <= 0)
       {
         batArr[i] = prodArr[i];
       }
       else
       {
-        battery += prodArr[i] - conArr[i];
-        if(battery <= 0)
+        storedEnergy += prodArr[i] - conArr[i];
+        if(storedEnergy <= 0)
         {
-          battery = 0;
+          storedEnergy = 0;
         }
-        batArr[i] = prodArr[i] + battery;
+        batArr[i] = prodArr[i] + storedEnergy;
 
-        let storedEnergy = battery;
-        Weather.update(w._id, {
-            $set: { storedEnergy },
-        });
+        //Weather.update(w._id, {
+        //    $set: { storedEnergy },
+        //});
       }
     }
   }
@@ -108,7 +107,7 @@ function productionGraph() {
     }
 
   }
-  console.log(prodArr);
+  console.log('prodArr:' + prodArr);
   return prodArr;
 }
 
@@ -129,28 +128,31 @@ function consumptionGraph() {
   {
     for(let j = 0; j < 24; j++)
     {
-      console.log('device time for' + i + ' :'+ parseInt(w.devices[i].time[j]));
+      //console.log('device time for' + i + ' :'+ parseInt(w.devices[i].time[j]));
       if(parseInt(w.devices[i].time[j]) != 0)
       {
         //converting to KWH
-          console.log('aassigning to array: ' + parseFloat(w.devices[i].power));
+          //console.log('aassigning to array: ' + parseFloat(w.devices[i].power));
         conArr[j] += parseFloat(parseFloat(w.devices[i].power)/1000.00);
-        console.log('conArr at ind '+j+' :' + conArr[j])
+        //console.log('conArr at ind '+j+' :' + conArr[j])
       }
 
     }
   }
   const firstHour = parseInt(w.hourlyClouds[0].time);
   console.log('conArr: ' + conArr);
-  return reorder(conArr, firstHour);
+  return reorder(conArr);
 }
 
-function reorder(Arr, firstHour)
+function reorder(Arr)
 {
+  let d = new Date();
+  let firstHour = d.getHours();
   let offset = firstHour;
   let lastInd = (Arr.length - 1) - offset;
   let finalArr = [];
-
+  console.log('arr in reorder: '+Arr);
+  console.log('firsthour: ' + firstHour);
   for(let i = 0; i < 24; i++)
   {
       finalArr[i] = 0;
@@ -158,7 +160,7 @@ function reorder(Arr, firstHour)
 
   for(let i = 0, j = offset; i < 24; i++, j++)
   {
-    console.log('i: '+i+' j:' + j);
+    //console.log('i: '+i+' j:' + j);
     if(j < 24)
     {
       console.log('it is lesser');
@@ -170,7 +172,7 @@ function reorder(Arr, firstHour)
       finalArr[i] = parseFloat(Arr[j - 24]);
     }
   }
-  console.log(finalArr);
+  console.log('final arr:' + finalArr);
   return finalArr;
 }
 
@@ -529,7 +531,7 @@ Template.Home_Page.onRendered(function onRendered() {
         pointHoverBorderWidth: 2,
         pointRadius: 1,
         pointHitRadius: 10,
-        data: [0],
+        data: batteryGraph(),
         spanGaps: false,
       }
     ]
