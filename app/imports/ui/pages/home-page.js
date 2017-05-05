@@ -94,6 +94,9 @@ function batteryGraph() {
 function productionGraph() {
   let prodArr = [];
   const w = Weather.find().fetch()[0];
+  if (!w) {
+    return [0];
+  }
   for(let i = 0; i < 8; i++)
   {
     let cloud_percent = parseFloat(w.hourlyClouds[i].clouds)/100.00;
@@ -113,6 +116,9 @@ function consumptionGraph() {
   let conArr = [];
   const w = Weather.find().fetch()[0];
 
+  if (!w) {
+    return [0];
+  }
     for(let i = 0; i < 24; i++)
     {
       conArr[i] = 0;
@@ -310,7 +316,15 @@ Template.Home_Page.helpers({
   },
   consumptionGraphHelper() {
     return consumptionGraph();
-  }
+  },
+  location() {
+    const w = Weather.find().fetch();
+    if (!w[0]){
+      return '(No current location)';
+    } else {
+      return `(${w[0].name})`;
+    }
+  },
 });
 
 Template.Home_Page.onCreated(function onCreated() {
