@@ -8,7 +8,10 @@
         <div id="electricConsumption" style="padding-bottom: 3em">
 
             <h4 style="color: #ff6d00">Your Energy Consumers</h4>
-            <div class="ui one column centered grid container">
+          <h3 class="ui dividing header">
+            Long-Term Devices
+          </h3>
+            <div style="margin-top: 20px;" class="ui one column centered grid container">
                 {{#each device in devices}}
                 <div class="ui basic segment">
                   <i style="margin-left: -25px;" class="edit icon devices"></i>
@@ -36,6 +39,21 @@
                 </div>
               </div>
             </div>
+          <h3 class="ui dividing header">
+            Short-Term Devices
+          </h3>
+          <div style="margin-top: 20px;" class="ui one column centered grid container">
+            <!-- Switch -->
+                <div class="switch">
+                  <label>
+                    Off
+                    <input type="checkbox">
+                    <span class="lever"></span>
+                    On
+                  </label>
+                </div>
+                <!--<div style="margin-top:5px" class="ui label">Toaster</div>-->
+          </div>
         </div>
     </div>
 
