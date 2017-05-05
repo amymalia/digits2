@@ -59,7 +59,7 @@ function batteryGraph() {
         batArr[i] = prodArr[i] + battery;
 
         let storedEnergy = battery;
-        Weather.update(weather._id, {
+        Weather.update(w._id, {
             $set: { storedEnergy },
         });
       }
@@ -81,7 +81,7 @@ function batteryGraph() {
         batArr[i] = prodArr[i] + battery;
 
         let storedEnergy = battery;
-        Weather.update(weather._id, {
+        Weather.update(w._id, {
             $set: { storedEnergy },
         });
       }
@@ -450,7 +450,7 @@ Template.Home_Page.onRendered(function onRendered() {
       {
         label: "Solar Energy Generated",
         fill: false,
-        lineTension: 0.5,
+        lineTension: 0,
         backgroundColor: "rgba(75,192,192,0.4)",
         borderColor: "rgba(75,192,192,1)",
         borderCapStyle: 'butt',
@@ -468,13 +468,13 @@ Template.Home_Page.onRendered(function onRendered() {
         pointHitRadius: 10,
         data: productionGraph(),
         spanGaps: false,
-        fillBetweenSet: 1,
-        fillBetweenColor: "rgba(255,0,0, 0.2)",
+        //fillBetweenSet: 1,
+        //fillBetweenColor: "rgba(255,0,0, 0.2)",
       },
       {
         label: "Your Energy Usage",
         fill: false,
-        lineTension: 0.5,
+        lineTension: 0,
         backgroundColor: "rgba(128,0,0,0.4)",
         borderColor: "rgba(128,0,0,0.4)",
         borderCapStyle: 'butt',
@@ -492,8 +492,28 @@ Template.Home_Page.onRendered(function onRendered() {
         pointHitRadius: 10,
         data: consumptionGraph(),
         spanGaps: false,
-        //fillBetweenSet: 0,
-        //fillBetweenColor: "rgba(5,5,255, 0.2)",
+      },
+      {
+        label: "Your Battery Storage",
+        fill: false,
+        lineTension: 0,
+        backgroundColor: "rgba(0,0,0,1)",
+        borderColor: "rgba(0,0,0,1)",
+        borderCapStyle: 'butt',
+        borderDash: [],
+        borderDashOffset: 0.0,
+        borderJoinStyle: 'miter',
+        pointBorderColor: "rgba(75,192,192,1)",
+        pointBackgroundColor: "#fff",
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: "rgba(75,192,192,1)",
+        pointHoverBorderColor: "rgba(220,220,220,1)",
+        pointHoverBorderWidth: 2,
+        pointRadius: 1,
+        pointHitRadius: 10,
+        data: [0],
+        spanGaps: false,
       }
     ]
   };
