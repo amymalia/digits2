@@ -57,13 +57,17 @@ Meteor.methods({
           let avgHourly = radiationArray[index+k];
           for(var i = 0; i < 480; i += 24)
           {
-              avgHourly += radiationArray[index+k + i];
+              if(avgHourly < radiationArray[index+k + i]) {
+                  avgHourly = radiationArray[index + k + i];
+              }
           }
           for(var i = 0; i > 480; i += 24)
           {
-              avgHourly += radiationArray[index+k - i];
+              if(avgHourly < radiationArray[index+k - i]) {
+                  avgHourly = radiationArray[index + k - i];
+              }
           }
-          avgHourly = avgHourly/40;
+          //avgHourly = avgHourly/40;
           hourlyRadiation[k] = avgHourly;
       }
       //console.log('Radiation Forecast' + radiationForecast);
