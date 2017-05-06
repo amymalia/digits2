@@ -142,16 +142,14 @@ function batteryUsageTotal() {
   //if the difference, total of difference is total battery used
   for(let i = 0; i < prodArr.length; i++)
   {
-    if(conArr[i] > prodArr[i])
-    {
-      let energyDiff = conArr[i] - prodArr[i];
-      if(energyDiff > storedEnergy)
-      {
-        batTotal += storedEnergy; 
-      }
-      else
-      {
-        batTotal += energyDiff;
+    if(conArr[i] > prodArr[i]) {
+        let energyDiff = conArr[i] - prodArr[i];
+        if (energyDiff > storedEnergy) {
+            batTotal += storedEnergy;
+        }
+        else {
+            batTotal += energyDiff;
+        }
     }
   }
   return batTotal;
