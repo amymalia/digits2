@@ -144,8 +144,14 @@ function batteryUsageTotal() {
   {
     if(conArr[i] > prodArr[i]) {
         let energyDiff = conArr[i] - prodArr[i];
-        if (energyDiff > storedEnergy) {
-            batTotal += storedEnergy;
+        let k = i - 1;
+        if(k < 0)
+        {
+          k = 0;
+        }
+        let sEnergy = batArr[k] - prodArr[k];
+        if (energyDiff > sEnergy) {
+            batTotal += sEnergy;
         }
         else {
             batTotal += energyDiff;
@@ -166,10 +172,17 @@ function gridUsageTotal()
   let gridTotal = 0;
    //if consumption > battery + produc, add the difference to gridTotal    
   for(let i = 0; i < conArr.length; i++)   
-  {      
+  {
+    let k = i - 1;
+    if(k < 0)
+    {
+        k = 0;
+    }
+    let sEnergy = batArr[k] - prodArr[k];
+
     if(conArr[i] > batArr[i])
     {
-      gridTotal += conArr[i] - batArr[i] - storedEnergy;
+      gridTotal += conArr[i] - batArr[i];
     }
   }   
   console.log('Alan fixed grid totes teehee: ' + gridTotal);
