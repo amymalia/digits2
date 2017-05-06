@@ -133,25 +133,26 @@ function consumptionTotal() {
 
 function batteryUsageTotal() {
   let prodArr = productionGraph();
+  let conArr = consumptionGraph();
   let batArr = batteryGraph();
   const w = Weather.find().fetch()[0];  
   let storedEnergy = parseFloat(w.storedEnergy);  
   let batteryCapacity = parseFloat(w.battery);
   let batTotal = 0;
-  let maxBatProd = [0];
-  for(let i = 0; i < 24; i++)
-  {
-    maxBatProd[i] = 0;
-  }
-  //find max possible
-  for( let i = 0; i < prodArr.length; i++)
-  {
-    maxBatProd[i] = prodArr[i] + batteryCapacity;
-  }
   //if the difference, total of difference is total battery used
   for(let i = 0; i < prodArr.length; i++)
   {
-    batTotal += maxBatProd[i] - batArr[i]; 
+    if(conArr[i] > prodArr[i])
+    {
+      let energyDiff = conArr[i] - prodArr[i];
+      if(energyDiff > storedEnergy)
+      {
+        batTotal += storedEnergy; 
+      }
+      else
+      {
+        batTotal += energyDiff;
+    }
   }
   return batTotal;
 }
@@ -159,28 +160,18 @@ function batteryUsageTotal() {
 function gridUsageTotal() 
 {    
   let conArr = consumptionGraph();    
-  //let batArr = batteryGraph();
+  let batArr = batteryGraph();
   let prodArr = productionGraph();
   const w = Weather.find().fetch()[0];      
   let storedEnergy = parseFloat(w.storedEnergy);      
   let batteryCapacity = parseFloat(w.battery);    
-  let gridTotal = 0;    
-  let maxBatProd = [0];
-  for(let i = 0; i < 24; i++)
-  {
-    maxBatProd[i] = 0;
-  }
-  //find max possible
-  for( let i = 0; i < prodArr.length; i++)
-  {
-    maxBatProd[i] = prodArr[i] + batteryCapacity;
-  }
+  let gridTotal = 0;
    //if consumption > battery + produc, add the difference to gridTotal    
   for(let i = 0; i < conArr.length; i++)   
   {      
-    if(conArr[i] > maxBatProd[i])
+    if(conArr[i] > batArr[i])
     {
-      gridTotal += conArr[i] - maxBatProd[i];
+      gridTotal += conArr[i] - batArr[i] - storedEnergy;
     }
   }   
   console.log('Alan fixed grid totes teehee: ' + gridTotal);
