@@ -159,7 +159,7 @@ function batteryUsageTotal() {
 function gridUsageTotal() 
 {    
   let conArr = consumptionGraph();    
-  let batArr = batteryGraph();
+  //let batArr = batteryGraph();
   let prodArr = productionGraph();
   const w = Weather.find().fetch()[0];      
   let storedEnergy = parseFloat(w.storedEnergy);      
@@ -178,12 +178,12 @@ function gridUsageTotal()
    //if consumption > battery + produc, add the difference to gridTotal    
   for(let i = 0; i < conArr.length; i++)   
   {      
-    if(conArr[i] > batArr[i])
+    if(conArr[i] > maxBatProd[i])
     {
-      gridTotal += conArr[i] - batArr[i];
+      gridTotal += conArr[i] - maxBatProd[i];
     }
   }   
-  console.log('grid totes: ' + gridTotal);
+  console.log('Alan fixed grid totes teehee: ' + gridTotal);
   return gridTotal;  
 } 
 
@@ -250,6 +250,42 @@ function reorder(Arr)
   }
   console.log('final arr:' + finalArr);
   return finalArr;
+}
+
+function currentState() {
+  let conArr = consumptionGraph();    
+  //let batArr = batteryGraph();
+  let prodArr = productionGraph();
+  const w = Weather.find().fetch()[0];          
+  let batteryCapacity = parseFloat(w.battery);    
+  let maxBatProd = [0];
+  let resultStr = 'None';
+  for(let i = 0; i < 24; i++)
+  {
+    maxBatProd[i] = 0;
+  }
+  //find max possible
+  for( let i = 0; i < prodArr.length; i++)
+  {
+    maxBatProd[i] = prodArr[i] + batteryCapacity;
+  }
+  
+  if(conArr[0] > maxBatProd[0])
+  {
+    resultStr = 'Grid';
+  }
+  else if(conArr[0] < maxBatProd[0] && conArr[0] > prodArr[0])
+  {
+    resultStr = 'Battery';
+  }
+  else if (conArr[0] < prodArr[0] && conArr[0] > 0)
+  {
+    resultStr = 'Solar'
+  }
+  else
+  {
+    resultStr = 'None'
+  }  
 }
 
 function avgMoneyGenerated() {
