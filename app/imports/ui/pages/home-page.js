@@ -33,7 +33,7 @@ function batteryGraph() {
   let conArr = consumptionGraph();
   let batArr = [];
   const w = Weather.find().fetch()[0];
-  let storedEnergy = parseFloat(w.battery);
+  let storedEnergy = parseFloat(w.storedEnergy);
   let batteryCapacity = parseFloat(w.battery);
 
   for(let i = 0; i < 24; i++)
@@ -47,7 +47,6 @@ function batteryGraph() {
     {
       if(storedEnergy >= batteryCapacity)
       {
-        console.log('sell back to grid');
         batArr[i] = prodArr[i] + batteryCapacity;
       }
       else
@@ -58,10 +57,6 @@ function batteryGraph() {
           storedEnergy = batteryCapacity;
         }
         batArr[i] = prodArr[i] + storedEnergy;
-
-        //Weather.update(w._id, {
-        //    $set: {storedEnergy}
-        //});
       }
 
     }
@@ -79,10 +74,6 @@ function batteryGraph() {
           storedEnergy = 0;
         }
         batArr[i] = prodArr[i] + storedEnergy;
-
-        //Weather.update(w._id, {
-        //    $set: { storedEnergy },
-        //});
       }
     }
   }
@@ -107,7 +98,6 @@ function productionGraph() {
     }
 
   }
-  console.log('prodArr:' + prodArr);
   return prodArr;
 }
 
@@ -185,7 +175,6 @@ function gridUsageTotal()
       gridTotal += conArr[i] - batArr[i];
     }
   }   
-  console.log('Alan fixed grid totes teehee: ' + gridTotal);
   return gridTotal;  
 } 
 
@@ -201,7 +190,6 @@ function consumptionGraph() {
       conArr[i] = 0;
     }
 
-  console.log('device length: ' + w.devices.length);
   for(let i = 0; i < w.devices.length; i++)
   {
     for(let j = 0; j < 24; j++)
@@ -229,8 +217,6 @@ function reorder(Arr)
   let offset = firstHour;
   let lastInd = (Arr.length - 1) - offset;
   let finalArr = [];
-  console.log('arr in reorder: '+Arr);
-  console.log('firsthour: ' + firstHour);
   for(let i = 0; i < 24; i++)
   {
       finalArr[i] = 0;
@@ -241,16 +227,13 @@ function reorder(Arr)
     //console.log('i: '+i+' j:' + j);
     if(j < 24)
     {
-      console.log('it is lesser');
       finalArr[i] = parseFloat(Arr[j]);
     }
     else
     {
-        console.log('it is greater');
       finalArr[i] = parseFloat(Arr[j - 24]);
     }
   }
-  console.log('final arr:' + finalArr);
   return finalArr;
 }
 
@@ -371,10 +354,6 @@ Template.Home_Page.helpers({
       return 100;
     } else {
       const totalEnergy = hourlyProduction() - hourlyConsumption();
-      console.log('total consumption: ' + hourlyConsumption());
-      console.log('total production: ' + hourlyProduction());
-      console.log('total energy: ' + totalEnergy);
-      console.log('ratio: ' + (hourlyProduction()/totalEnergy)*100);
       return (hourlyProduction()/hourlyConsumption())*100;
     }
   },
@@ -395,11 +374,6 @@ Template.Home_Page.helpers({
     // get panel size from ui
     const panelSize = 8;
     const total_energy = actual_radiation*panelSize*panelEff - total_consumption;
-    console.log('cloud: ' + cloud_percent);
-    console.log('p: ' + p);
-    console.log('actual rad: ' + actual_radiation);
-    console.log('actual rad * panel size * panel eff: '+ actual_radiation*panelSize*panelEff);
-    console.log('total energy: ' + total_energy);
     return total_energy;
   },
   totalConsumptionHelper() {
@@ -485,7 +459,6 @@ Template.Home_Page.helpers({
     } else if (currentState === 'BATTERY') {
       return 'green';
     } else if (currentState === 'NONE') {
-      console.log('LOOK AT ME GOD DAMMIT');
       return 'grey';
     }
   }
@@ -653,7 +626,7 @@ Template.Home_Page.onRendered(function onRendered() {
         //fillBetweenColor: "rgba(255,0,0, 0.2)",
       },
       {
-        label: "Your Energy Usage",
+        label: "Energy Usage",
         fill: false,
         lineTension: 0,
         backgroundColor: "rgba(128,0,0,0.4)",
@@ -675,7 +648,7 @@ Template.Home_Page.onRendered(function onRendered() {
         spanGaps: false,
       },
       {
-        label: "Your Battery Storage",
+        label: "Battery Storage",
         fill: false,
         lineTension: 0,
         backgroundColor: "rgba(0,0,0,1)",
