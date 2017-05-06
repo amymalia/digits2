@@ -701,7 +701,7 @@ Template.Home_Page.onRendered(function onRendered() {
         yAxes: [{
           scaleLabel: {
             display: true,
-            labelString: 'kW'
+            labelString: 'kWh'
           }
         }],
         xAxes: [{
