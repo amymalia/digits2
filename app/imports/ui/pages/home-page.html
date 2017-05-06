@@ -31,8 +31,8 @@
           <canvas id="myChart" width="1200" height="500"></canvas>
         </div>
         <div class="carousel-item white white-text" href="#two!">
-          <a style="color:teal;">You are currently running on:{{totalProductionHelper}}</a>
-          <div class="progress" style=" background-color: #ff6d00; border-radius: 4px; padding: 20px ">
+          <a style="color:teal;">{{currentStateHelper}}</a>
+          <div class="progress" style="background-color: green; border-radius: 4px; padding: 20px ">
           </div>
 
           <div style="margin-top: 20px;" class="ui three column centered grid container">
@@ -207,8 +207,8 @@
                   <p>Panel Absorption Index (%)</p>
                   <input placeholder="%" id="panelAbsorbInput" type="text" class="validate" value="{{weather.absorbPanel}}">
 
-                  <p>Solar Battery Storage (W)</p>
-                  <input placeholder="W" id="batteryInput" type="text" class="validate" value="{{weather.battery}}">
+                  <p>Solar Battery Storage (kWh)</p>
+                  <input placeholder="kWh" id="batteryInput" type="text" class="validate" value="{{weather.battery}}">
 
                   <button class="ui basic button" type="submit">Submit</button>
                 </form>

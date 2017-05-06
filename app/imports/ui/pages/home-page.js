@@ -23,7 +23,7 @@ function hourlyProduction() {
   const p = (1 - (0.75 * (Math.pow(cloud_percent, 3))));
   const actual_radiation = p * parseFloat(w.radiation);
 
-  t_prod = w.areaPanel * w.absorbPanel * actual_radiation;
+  t_prod = w.areaPanel * (w.absorbPanel/100) * actual_radiation;
   //console.log(t_prod);
   return t_prod;
 }
@@ -103,7 +103,7 @@ function productionGraph() {
     for(let j = i*3; j < i*3 + 3; j++)
     {
         //diving by 1000 to give KWH
-        prodArr[j] = parseFloat(w.hourlyRadiation[j]) * p/1000.00 * w.areaPanel * w.absorbPanel;
+        prodArr[j] = parseFloat(w.hourlyRadiation[j]) * p/1000.00 * w.areaPanel * (w.absorbPanel/100);
     }
 
   }
@@ -272,20 +272,21 @@ function currentState() {
   
   if(conArr[0] > maxBatProd[0])
   {
-    resultStr = 'Grid';
+    resultStr = 'GRID';
   }
   else if(conArr[0] < maxBatProd[0] && conArr[0] > prodArr[0])
   {
-    resultStr = 'Battery';
+    resultStr = 'BATTERY';
   }
   else if (conArr[0] < prodArr[0] && conArr[0] > 0)
   {
-    resultStr = 'Solar'
+    resultStr = 'SOLAR'
   }
   else
   {
-    resultStr = 'None'
-  }  
+    resultStr = 'NONE'
+  }
+  return resultStr;
 }
 
 function avgMoneyGenerated() {
@@ -465,6 +466,26 @@ Template.Home_Page.helpers({
   },
   totalSaved() {
     return (((consumptionTotal() - (batteryUsageTotal() + gridUsageTotal()))*0.11) + (batteryUsageTotal() * 0.11)).toFixed(2);
+  },
+  currentStateHelper() {
+    if (currentState() === 'NONE') {
+      return 'You are not currently consuming any energy';
+    } else {
+      return `You are currently running on ${currentState()}`;
+    }
+  },
+  barColor() {
+    const currentState = currentState();
+    if (currentState === 'SOLAR') {
+      return 'green';
+    } else if (currentState === 'GRID') {
+      return 'orange';
+    } else if (currentState === 'BATTERY') {
+      return 'green';
+    } else if (currentState === 'NONE') {
+      console.log('LOOK AT ME GOD DAMMIT');
+      return 'grey';
+    }
   }
 });
 
