@@ -159,12 +159,22 @@ function batteryUsageTotal() {
 function gridUsageTotal() 
 {    
   let conArr = consumptionGraph();    
-  let batArr = batteryGraph();    
+  let batArr = batteryGraph();
+  let prodArr = productionGraph();
   const w = Weather.find().fetch()[0];      
   let storedEnergy = parseFloat(w.storedEnergy);      
   let batteryCapacity = parseFloat(w.battery);    
   let gridTotal = 0;    
-  let maxBatProd = [0]; 
+  let maxBatProd = [0];
+  for(let i = 0; i < 24; i++)
+  {
+    maxBatProd[i] = 0;
+  }
+  //find max possible
+  for( let i = 0; i < prodArr.length; i++)
+  {
+    maxBatProd[i] = prodArr[i] + batteryCapacity;
+  }
    //if consumption > battery + produc, add the difference to gridTotal    
   for(let i = 0; i < conArr.length; i++)   
   {      

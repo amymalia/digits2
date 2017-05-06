@@ -5,7 +5,7 @@
   <div class="ui one column centered grid container">
     <div class="ui center aligned compact segment" style="margin-top:100px; margin-bottom: 100px;">
       <div class="ui top attached black large label">SOLAR ENERGY TRACKER
-          <div class="ui inline dropdown float right">
+          <!--<div class="ui inline dropdown float right">
               <div class="ui simple dropdown item">
                   Forecast<i class="plus square outline icon"></i>
 
@@ -21,7 +21,7 @@
                       <div class="item"><i class="dollar icon" style="color: #ff6d00"> 35</i>  </div>
                   </div>
               </div>
-          </div>
+          </div>-->
       </div>
       <H4 style="margin-top:40px"> Your Energy Rate <i class="sun icon" style="color: goldenrod; text-align: center "></i></H4>
 
@@ -30,17 +30,6 @@
           <canvas id="myChart" width="1200" height="500"></canvas>
         </div>
         <div class="carousel-item white white-text" href="#two!">
-          <div style="margin-top: 20px;" class="ui one column centered grid container">
-            <table style="padding: 0px" class="ui collapsing celled table">
-              <tbody>
-              <tr>
-                <td class="negative">Cost: ${{rawCost}}</td>
-                <td class="positive">Saved: ${{saved}}</td>
-                <td>Final: ${{finalCost}}</td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
           <a style="color:teal; float: left">{{totalProductionHelper}} kW/h from solar</a>
           <a style="color:#ff6d00; float: right">{{totalConsumptionHelper}} kW/h from other source</a>
           <div class="progress" style=" background-color: #ff6d00; border-radius: 4px; padding: 8px ">
@@ -107,6 +96,16 @@
               <div class="row">
                 <div class="ui statistic">
                   <div class="value">
+                    ${{totalSaved}}
+                  </div>
+                  <div class="label">
+                    Total Estimated Saved
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="ui statistic">
+                  <div class="value">
                     ${{gridUsageTotalCostHelper}}
                   </div>
                   <div class="label">
@@ -131,16 +130,6 @@
                   </div>
                   <div class="label">
                     Total Estimated From Direct Panel
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="ui statistic">
-                  <div class="value">
-                    ${{totalSaved}}
-                  </div>
-                  <div class="label">
-                    Total Estimated Saved
                   </div>
                 </div>
               </div>
