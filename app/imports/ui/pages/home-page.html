@@ -1,6 +1,7 @@
 <template name="Home_Page">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
   <script src="Chart.js"></script>
+  <body opacity= "0.85"></body>
 
   <div class="ui one column centered grid container">
     <div class="ui center aligned compact segment" style="margin-top:100px; margin-bottom: 100px;">
@@ -23,17 +24,15 @@
               </div>
           </div>-->
       </div>
-      <H4 style="margin-top:40px"> Your Energy Rate <i class="sun icon" style="color: goldenrod; text-align: center "></i></H4>
+      <H4 style="margin-top:40px"> Visualize Your Energy <i class="sun icon" style="color: goldenrod; text-align: center "></i></H4>
 
       <div style="width:1200px; height:500px" class="carousel carousel-slider center" data-indicators="true">
         <div class="carousel-item white black-text" href="#one!">
           <canvas id="myChart" width="1200" height="500"></canvas>
         </div>
         <div class="carousel-item white white-text" href="#two!">
-          <a style="color:teal; float: left">{{totalProductionHelper}} kW/h from solar</a>
-          <a style="color:#ff6d00; float: right">{{totalConsumptionHelper}} kW/h from other source</a>
-          <div class="progress" style=" background-color: #ff6d00; border-radius: 4px; padding: 8px ">
-            <div class="determinate" style="width: {{barRatio}}%"></div>
+          <a style="color:teal;">You are currently running on:{{totalProductionHelper}}</a>
+          <div class="progress" style=" background-color: #ff6d00; border-radius: 4px; padding: 20px ">
           </div>
 
           <div style="margin-top: 20px;" class="ui three column centered grid container">
@@ -137,14 +136,14 @@
           </div>
           </div>
 
-        <div class="carousel-item green white-text" href="#three!">
+        <!--<div class="carousel-item green white-text" href="#three!">
           <h2>Third Panel</h2>
           <p class="white-text">This is your third panel</p>
         </div>
         <div class="carousel-item blue white-text" href="#four!">
           <h2>Fourth Panel</h2>
           <p class="white-text">This is your fourth panel</p>
-        </div>
+        </div>-->
       </div>
 
       <div style="margin-top: 20px" class="ui styled fluid accordion">

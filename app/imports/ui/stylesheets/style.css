@@ -7,6 +7,9 @@
 }
 
 body{
+  /*background: linear-gradient(
+      rgba(20,20,20, .5),
+      rgba(20,20,20, .5)), url("/images/space-background.jpg");*/
   background-image: url("/images/space-background.jpg");
   opacity: 0.85;
   background-position: center center;
